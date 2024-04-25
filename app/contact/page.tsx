@@ -1,6 +1,8 @@
-
+"use client"
 
 import React, { useState } from 'react';
+
+import type { FormEventHandler } from "react";
 
 const ContactPage = () => {
   const [name, setName] = useState('');
@@ -8,7 +10,7 @@ const ContactPage = () => {
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+ const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
    
     console.log('Nom:', name);
