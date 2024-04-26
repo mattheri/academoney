@@ -1,7 +1,7 @@
-import { useContext } from "react"
+import { useContext } from "react";
 
-import { CalculatorContext } from "../context/CalculatorContext"
+import { CalculatorContext } from "../context/CalculatorContext";
 
 export const useCalculator = () => {
-	return useContext(CalculatorContext);
-}
+  return useContext(CalculatorContext);
+};

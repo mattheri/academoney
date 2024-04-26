@@ -1,9 +1,9 @@
-import { useCallback, useMemo } from "react"
+import { useCallback, useMemo } from "react";
 
-import { CalculatorService } from "../services/CalculatorService"
+import { CalculatorService } from "../services/CalculatorService";
 
 export const useCalculatorInit = () => {
-	const calculator = useMemo(() => CalculatorService.instance, []);
+  const calculator = useMemo(() => CalculatorService.instance, []);
 
-	return useCallback(() => calculator.init(), [calculator]);
-}
+  return useCallback(() => calculator.init(), [calculator]);
+};

@@ -5,4 +5,11 @@ import { CalculatorProvider } from "./CalculatorProvider";
 import { CalculatorRow } from "./CalculatorRow";
 import { CalculatorScreen } from "./CalculatorScreen";
 
-export { Calculator, CalculatorButton, CalculatorPad, CalculatorProvider, CalculatorRow, CalculatorScreen };
+export {
+  Calculator,
+  CalculatorButton,
+  CalculatorPad,
+  CalculatorProvider,
+  CalculatorRow,
+  CalculatorScreen,
+};
