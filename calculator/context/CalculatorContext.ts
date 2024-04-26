@@ -6,6 +6,7 @@ export const CalculatorContext = createContext<CalculatorState & CalculatorActio
 	initialized: false,
 	tokens: [],
 	total: 0,
+	currentToken: null,
 	addToken: () => { },
 	calculate: () => { },
 	clear: () => { },

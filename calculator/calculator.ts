@@ -17,6 +17,7 @@ export type CalculatorState = {
 	total: number;
 	initialized: boolean;
 	tokens: string[];
+	currentToken: string | null;
 }
 
 export type CalculatorActions = {

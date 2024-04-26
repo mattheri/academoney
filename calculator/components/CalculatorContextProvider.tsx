@@ -19,6 +19,7 @@ export const CalculatorContextProvider: FC<Props> = ({
     initialized: false,
     tokens: [],
     total: 0,
+    currentToken: null,
   });
 
   const calculator = useMemo(() => CalculatorService.instance, []);
@@ -134,6 +135,19 @@ export const CalculatorContextProvider: FC<Props> = ({
       window.removeEventListener("keydown", onKeydown);
     };
   }, [focusKeyboardInputs, calculator, onKeydown, calcState, autoInit]);
+
+  useEffect(() => {
+    if (
+      !calcState.initialized ||
+      calculator.previousToken === calcState.currentToken
+    )
+      return;
+
+    setCalcState({
+      ...calcState,
+      currentToken: calculator.previousToken,
+    });
+  }, [calculator.previousToken, calcState]);
 
   return (
     <CalculatorContext.Provider

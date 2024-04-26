@@ -13,10 +13,10 @@ export class CalculatorService {
 	private eval: typeof evaluate | null = null;
 	private initCallbacks: ((initialized: boolean) => void)[] = [];
 	private tokensSymbols = tokens;
-	private previousToken: string | null = null;
-	_initialized = false;
-	_tokens: string[] = [];
-	_total = 0;
+	private _previousToken: string | null = null;
+	private _initialized = false;
+	private _tokens: string[] = [];
+	private _total = 0;
 
 	get initialized() {
 		return this._initialized;
@@ -40,6 +40,14 @@ export class CalculatorService {
 
 	set total(value) {
 		this._total = value;
+	}
+
+	get previousToken() {
+		return this._previousToken;
+	}
+
+	set previousToken(value) {
+		this._previousToken = value;
 	}
 
 	private noopThrowError(message: string) {

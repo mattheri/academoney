@@ -21,16 +21,24 @@ type Props = PropsWithRef<
 
 export const CalculatorButton: FC<Props> = forwardRef<HTMLButtonElement, Props>(
   ({ action, className, variant = "numeric", children }, ref) => {
-    const { addToken } = useCalculator();
+    const { addToken, currentToken } = useCalculator();
 
     const onClick = () => addToken(action);
+    const normalizedCurrentToken =
+      typeof action === "string" ? currentToken : Number(currentToken) ?? null;
 
     return (
       <button
         ref={ref}
         type="button"
         onClick={onClick}
-        className={cx(calculatorButtonStyles({ variant }), className)}
+        className={cx(
+          calculatorButtonStyles({ variant }),
+          {
+            "bg-opacity-70": normalizedCurrentToken === action,
+          },
+          className
+        )}
       >
         {children}
       </button>
