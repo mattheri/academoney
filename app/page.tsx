@@ -1,10 +1,9 @@
-import Image from "next/image";
-
-import { Calculator } from "@/calculator/components/Calculator";
+import Calculator from "@/calculator";
 
 export default function Home() {
-  return <main>
-
-    <Calculator />
-  </main>;
+  return (
+    <main className="grid">
+      <Calculator autoInit focusKeyboardInputs />
+    </main>
+  );
 }

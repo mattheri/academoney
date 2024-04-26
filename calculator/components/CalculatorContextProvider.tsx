@@ -1,89 +1,161 @@
-'use client'
+"use client";
 
 import type { FC, PropsWithChildren } from "react";
-import { use, useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-import type { CalculatorState } from "../calculator";
+import { Action, CalculatorProps, CalculatorState } from "../calculator";
 import { CalculatorContext } from "../context/CalculatorContext";
 import { CalculatorService } from "../services/CalculatorService";
 
-export const CalculatorContextProvider: FC<PropsWithChildren> = ({ children }) => {
-	const [calcState, setCalcState] = useState<CalculatorState>({
-		initialized: false,
-		tokens: [],
-		total: 0,
-	});
+type Props = PropsWithChildren<CalculatorProps>;
 
-	const calculator = useMemo(() => new CalculatorService(), []);
+export const CalculatorContextProvider: FC<Props> = ({
+  autoInit = false,
+  focusKeyboardInputs = false,
+  children,
+}) => {
+  const [calcState, setCalcState] = useState<CalculatorState>({
+    initialized: false,
+    tokens: [],
+    total: 0,
+  });
 
-	const addToken = (token: string) => {
-		calculator.addToken(token);
-		setCalcState({
-			...calcState,
-			total: calculator.total,
-			tokens: calculator.tokens,
-		});
-	}
+  const calculator = useMemo(() => CalculatorService.instance, []);
 
-	const calculate = () => {
-		calculator.calculate();
-		setCalcState({
-			...calcState,
-			total: calculator.total,
-			tokens: calculator.tokens,
-		});
-	}
+  const clear = useCallback(() => {
+    if (!calcState.initialized) return;
 
-	const clear = () => {
-		calculator.clear();
-		setCalcState({
-			...calcState,
-			total: calculator.total,
-			tokens: calculator.tokens,
-		});
-	}
+    calculator.clear();
+    setCalcState({
+      ...calcState,
+      total: calculator.total,
+      tokens: calculator.tokens,
+    });
+  }, [calcState, calculator]);
 
-	const clearMemory = () => {
-		calculator.clearMemory();
-		setCalcState({
-			...calcState,
-			total: calculator.total,
-			tokens: calculator.tokens,
-		});
-	}
+  const clearMemory = useCallback(() => {
+    if (!calcState.initialized) return;
 
-	useEffect(() => {
-		if (calcState.initialized) return;
+    calculator.clearMemory();
+    setCalcState({
+      ...calcState,
+      total: calculator.total,
+      tokens: calculator.tokens,
+    });
+  }, [calcState, calculator]);
 
-		const onInit = (initialized: boolean) => {
-			setCalcState({
-				...calcState,
-				initialized,
-			});
-		};
+  const addToken = useCallback(
+    (action: Action | number) => {
+      if (!calcState.initialized) return;
 
-		calculator.onInit(onInit);
-		calculator.init();
-	}, [calculator, calcState]);
+      switch (action) {
+        case Action.Clear:
+          clear();
+          break;
+        case Action.ClearMemory:
+          clearMemory();
+          break;
+        default:
+          calculator.addToken(action);
+          setCalcState({
+            ...calcState,
+            total: calculator.total,
+            tokens: calculator.tokens,
+          });
+      }
+    },
+    [calcState, calculator, clear, clearMemory]
+  );
 
-	useEffect(() => {
-		console.log(calculator.tokens)
-	}, [calculator.tokens])
+  const calculate = () => {
+    if (!calcState.initialized) return;
 
-	useEffect(() => {
-		console.log(calcState)
-	}, [calcState])
+    calculator.calculate();
+    setCalcState({
+      ...calcState,
+      total: calculator.total,
+      tokens: calculator.tokens,
+    });
+  };
 
-	return (
-		<CalculatorContext.Provider
-			value={{
-				...calcState,
-				addToken,
-				calculate,
-				clear,
-				clearMemory
-			}}>
-			{children}
-		</CalculatorContext.Provider>
-	)
-}
+  const onKeydown = useCallback(
+    (event: KeyboardEvent) => {
+      const { key } = event;
+
+      const isAllowedKey = [
+        "Enter",
+        "+",
+        "-",
+        "*",
+        "/",
+        "^",
+        ".",
+        "(",
+        ")",
+        "Backspace",
+        "Delete",
+        ...Array.from({ length: 10 }, (_, i) => i.toString()),
+      ].includes(key);
+
+      if (!isAllowedKey) return;
+
+      event.preventDefault();
+
+      const actions: Record<string, Action> = {
+        Enter: Action.Equal,
+        "+": Action.Add,
+        "-": Action.Subtract,
+        "*": Action.Multiply,
+        "/": Action.Divide,
+        "^": Action.Exponent,
+        ".": Action.Decimal,
+        "(": Action.ParenthesisOpen,
+        ")": Action.ParenthesisClose,
+        Backspace: Action.Clear,
+        Delete: Action.Clear,
+      };
+
+      const action = key in actions ? actions[key] : parseInt(key, 10);
+      addToken(action);
+    },
+    [addToken]
+  );
+
+  useEffect(() => {
+    if (calcState.initialized) return;
+
+    const onInit = (initialized: boolean) => {
+      setCalcState({
+        ...calcState,
+        initialized,
+      });
+    };
+
+    calculator.onInit(onInit);
+    if (autoInit) calculator.init();
+  }, [calculator, calcState, autoInit]);
+
+  useEffect(() => {
+    if (!focusKeyboardInputs) return;
+
+    window.addEventListener("keydown", onKeydown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeydown);
+    };
+  }, [focusKeyboardInputs, calculator, onKeydown]);
+
+  return (
+    <CalculatorContext.Provider
+      value={{
+        ...calcState,
+        addToken,
+        calculate,
+        clear,
+        clearMemory,
+      }}
+    >
+      {children}
+    </CalculatorContext.Provider>
+  );
+};
