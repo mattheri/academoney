@@ -92,7 +92,6 @@ export class CalculatorService {
 		if (this.initialized && this.eval) return;
 
 		import('mathjs').then(({ create, all }) => {
-			console.log('mathjs loaded')
 			const math = create(all);
 			this.eval = math.evaluate;
 			math.import({

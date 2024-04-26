@@ -39,10 +39,7 @@ export const CalculatorScreen = forwardRef<HTMLDivElement>(({}, ref) => {
     () => (Number.isNaN(Number(calcTotal)) ? "0" : calcTotal?.toString()),
     [calcTotal]
   );
-  const operation = useMemo(
-    () => (tokens.length ? tokens.join("") : "0"),
-    [tokens]
-  );
+  const operation = tokens.length ? tokens.join("") : "0";
 
   return (
     <div ref={ref} className="flex flex-col">

@@ -136,14 +136,17 @@ export const CalculatorContextProvider: FC<Props> = ({
   }, [calculator, calcState, autoInit]);
 
   useEffect(() => {
-    if (!focusKeyboardInputs) return;
+    if (calcState.initialized && !focusKeyboardInputs) {
+      window.removeEventListener("keydown", onKeydown);
+    }
+    if (!focusKeyboardInputs || !calcState.initialized) return;
 
     window.addEventListener("keydown", onKeydown);
 
     return () => {
       window.removeEventListener("keydown", onKeydown);
     };
-  }, [focusKeyboardInputs, calculator, onKeydown]);
+  }, [focusKeyboardInputs, calculator, onKeydown, calcState, autoInit]);
 
   return (
     <CalculatorContext.Provider
