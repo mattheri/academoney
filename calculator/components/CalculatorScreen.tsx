@@ -9,7 +9,7 @@ import { useCalculator } from "../hooks/useCalculator";
 export const CalculatorScreen = forwardRef<HTMLDivElement>(({}, ref) => {
   const { tokens, total: calcTotal, addToken } = useCalculator();
 
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const addTokenOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
     const isAllowed = allowedInputValues.some((v) => v === value);
@@ -19,7 +19,7 @@ export const CalculatorScreen = forwardRef<HTMLDivElement>(({}, ref) => {
     addToken(token);
   };
 
-  const onClick = async () => {
+  const copyTotalToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(calcTotal.toString());
       console.log("Copied to clipboard");
@@ -48,7 +48,7 @@ export const CalculatorScreen = forwardRef<HTMLDivElement>(({}, ref) => {
         />
         <button
           type="button"
-          onClick={onClick}
+          onClick={copyTotalToClipboard}
           className="absolute w-full h-full top-0 left-0 bg-transparent focus:outline-none"
           aria-label="Copy total to clipboard"
         />
@@ -56,7 +56,7 @@ export const CalculatorScreen = forwardRef<HTMLDivElement>(({}, ref) => {
       <input
         type="text"
         value={operation}
-        onChange={onChange}
+        onChange={addTokenOnChange}
         className="py-2 px-4 text-right w-full text-2xl bg-white"
         aria-label="Operation"
       />
