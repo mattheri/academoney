@@ -161,8 +161,13 @@ export class CalculatorService {
     else {
       switch (action) {
         case Action.Clear:
+          this.clear();
+          this.previousToken = action;
+          break;
         case Action.ClearMemory:
-          return;
+          this.clearMemory();
+          this.previousToken = action;
+          break;
         default:
           this.tokens.push(this.tokensSymbols[action]);
           break;

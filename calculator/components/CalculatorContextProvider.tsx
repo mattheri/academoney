@@ -50,23 +50,14 @@ export const CalculatorContextProvider: FC<Props> = ({
     (action: Action | number) => {
       if (!calcState.initialized) return;
 
-      switch (action) {
-        case Action.Clear:
-          clear();
-          break;
-        case Action.ClearMemory:
-          clearMemory();
-          break;
-        default:
-          calculator.addToken(action);
-          setCalcState({
-            ...calcState,
-            total: calculator.total,
-            tokens: calculator.tokens,
-          });
-      }
+      calculator.addToken(action);
+      setCalcState({
+        ...calcState,
+        total: calculator.total,
+        tokens: calculator.tokens,
+      });
     },
-    [calcState, calculator, clear, clearMemory]
+    [calcState, calculator]
   );
 
   const calculate = () => {

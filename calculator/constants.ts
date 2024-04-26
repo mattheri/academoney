@@ -35,6 +35,7 @@ export const keyboardActionsMap: Record<string, Action> = {
   ".": Action.Decimal,
   "(": Action.ParenthesisOpen,
   ")": Action.ParenthesisClose,
+  "%": Action.Percent,
   Backspace: Action.Clear,
   Delete: Action.Clear,
 } as const;
@@ -51,6 +52,7 @@ export const allowedKeys = [
   ")",
   "Backspace",
   "Delete",
+  "%",
   ...Array.from({ length: 10 }, (_, i) => i.toString()),
 ] as const;
 

@@ -25,8 +25,13 @@ export const CalculatorButton: FC<Props> = forwardRef<HTMLButtonElement, Props>(
     const { addToken, currentToken } = useCalculator();
 
     const onClick = () => addToken(action);
-    const normalizedCurrentToken =
-      typeof action === "string" ? currentToken : Number(currentToken) ?? null;
+    let normalizedCurrentToken: string | number | null = currentToken;
+
+    if (normalizedCurrentToken) {
+      if (typeof action === "number") {
+        normalizedCurrentToken = Number(normalizedCurrentToken);
+      }
+    }
 
     return (
       <button
@@ -36,7 +41,7 @@ export const CalculatorButton: FC<Props> = forwardRef<HTMLButtonElement, Props>(
         className={cx(
           calculatorButtonStyles({ variant }),
           {
-            "bg-opacity-70": normalizedCurrentToken === action,
+            pressed: normalizedCurrentToken === action,
           },
           className
         )}
