@@ -42,6 +42,10 @@ export class CalculatorService {
 		this._total = value;
 	}
 
+	private noopThrowError(message: string) {
+		return () => {throw new Error(message)}
+	}
+
 	private previousTokenIsNull() {
 		return this.previousToken === null;
 	}
@@ -95,12 +99,12 @@ export class CalculatorService {
 			const math = create(all);
 			this.eval = math.evaluate;
 			math.import({
-				import: function () { throw new Error('Function import is disabled') },
-				createUnit: function () { throw new Error('Function createUnit is disabled') },
-				evaluate: function () { throw new Error('Function evaluate is disabled') },
-				parse: function () { throw new Error('Function parse is disabled') },
-				simplify: function () { throw new Error('Function simplify is disabled') },
-				derivative: function () { throw new Error('Function derivative is disabled') }
+				import: this.noopThrowError('Function import is disabled').bind(this),
+				createUnit: this.noopThrowError('Function createUnit is disabled').bind(this),
+				evaluate: this.noopThrowError('Function evaluate is disabled').bind(this),
+				parse: this.noopThrowError('Function parse is disabled').bind(this),
+				simplify: this.noopThrowError('Function simplify is disabled').bind(this),
+				derivative: this.noopThrowError('Function derivative is disabled').bind(this),
 			}, { override: true });
 			this.initialized = true;
 			this.initCallbacks.forEach(cb => cb(true));

@@ -12,3 +12,30 @@ export const tokens = {
 	[Action.ParenthesisClose]: ")",
 	[Action.Percent]: "%",
 }
+
+export const actionsMap: Record<string, Action> = {
+	"+": Action.Add,
+	"-": Action.Subtract,
+	"*": Action.Multiply,
+	"/": Action.Divide,
+	"(": Action.ParenthesisOpen,
+	")": Action.ParenthesisClose,
+	"^": Action.Exponent,
+	".": Action.Decimal,
+	"%": Action.Percent,
+};
+
+export const allowedKeys = [
+	"Enter",
+	"+",
+	"-",
+	"*",
+	"/",
+	"^",
+	".",
+	"(",
+	")",
+	"Backspace",
+	"Delete",
+	...Array.from({ length: 10 }, (_, i) => i.toString()),
+];

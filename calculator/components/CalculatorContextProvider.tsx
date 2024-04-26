@@ -4,6 +4,7 @@ import type { FC, PropsWithChildren } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Action, CalculatorProps, CalculatorState } from "../calculator";
+import { allowedKeys } from "../constants";
 import { CalculatorContext } from "../context/CalculatorContext";
 import { CalculatorService } from "../services/CalculatorService";
 
@@ -82,21 +83,7 @@ export const CalculatorContextProvider: FC<Props> = ({
     (event: KeyboardEvent) => {
       const { key } = event;
 
-      const isAllowedKey = [
-        "Enter",
-        "+",
-        "-",
-        "*",
-        "/",
-        "^",
-        ".",
-        "(",
-        ")",
-        "Backspace",
-        "Delete",
-        ...Array.from({ length: 10 }, (_, i) => i.toString()),
-      ].includes(key);
-
+      const isAllowedKey = allowedKeys.includes(key);
       if (!isAllowedKey) return;
 
       event.preventDefault();

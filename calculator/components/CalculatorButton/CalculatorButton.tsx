@@ -1,15 +1,14 @@
 "use client";
 
 import type { FC, PropsWithChildren, PropsWithRef } from "react";
-
 import { forwardRef } from "react";
-import {
-  calculatorButtonStyles,
-  type CalculatorButtonVariantProps,
-} from "./CalculatorButton.style";
-import { cx } from "@/utils/cx";
-import { useCalculator } from "@/calculator/hooks/useCalculator";
+
 import { Action } from "@/calculator/calculator";
+import { useCalculator } from "@/calculator/hooks/useCalculator";
+import { cx } from "@/utils/cx";
+
+import type { CalculatorButtonVariantProps } from "./CalculatorButton.style";
+import { calculatorButtonStyles } from "./CalculatorButton.style";
 
 type Props = PropsWithRef<
   PropsWithChildren<
