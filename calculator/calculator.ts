@@ -22,9 +22,6 @@ export type CalculatorState = {
 
 export type CalculatorActions = {
   addToken: (action: Action | number) => void;
-  calculate: () => void;
-  clear: () => void;
-  clearMemory: () => void;
 };
 
 export type CalculatorProps = {

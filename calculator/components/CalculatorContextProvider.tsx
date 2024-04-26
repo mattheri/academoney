@@ -24,28 +24,6 @@ export const CalculatorContextProvider: FC<Props> = ({
 
   const calculator = useMemo(() => CalculatorService.instance, []);
 
-  const clear = useCallback(() => {
-    if (!calcState.initialized) return;
-
-    calculator.clear();
-    setCalcState({
-      ...calcState,
-      total: calculator.total,
-      tokens: calculator.tokens,
-    });
-  }, [calcState, calculator]);
-
-  const clearMemory = useCallback(() => {
-    if (!calcState.initialized) return;
-
-    calculator.clearMemory();
-    setCalcState({
-      ...calcState,
-      total: calculator.total,
-      tokens: calculator.tokens,
-    });
-  }, [calcState, calculator]);
-
   const addToken = useCallback(
     (action: Action | number) => {
       if (!calcState.initialized) return;
@@ -132,9 +110,6 @@ export const CalculatorContextProvider: FC<Props> = ({
       value={{
         ...calcState,
         addToken,
-        calculate,
-        clear,
-        clearMemory,
       }}
     >
       {children}

@@ -10,7 +10,4 @@ export const CalculatorContext = createContext<
   total: 0,
   currentToken: null,
   addToken: () => {},
-  calculate: () => {},
-  clear: () => {},
-  clearMemory: () => {},
 });
