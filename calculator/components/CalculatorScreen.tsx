@@ -44,13 +44,13 @@ export const CalculatorScreen = forwardRef<HTMLDivElement>(({}, ref) => {
           readOnly
           disabled
           className="py-2 px-4 text-right text-xl bg-white w-full"
-          aria-label="Total"
+          aria-label={`Total is ${total}`}
         />
         <button
           type="button"
           onClick={onClick}
           className="absolute w-full h-full top-0 left-0 bg-transparent focus:outline-none"
-          aria-label="Copy to clipboard"
+          aria-label="Copy total to clipboard"
         />
       </div>
       <input
