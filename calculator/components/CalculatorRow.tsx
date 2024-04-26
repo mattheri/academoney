@@ -1,5 +1,3 @@
-"use client";
-
 import type { FC, PropsWithChildren, PropsWithRef } from "react";
 import { forwardRef } from "react";
 
