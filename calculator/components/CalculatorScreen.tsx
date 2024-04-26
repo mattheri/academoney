@@ -3,7 +3,7 @@
 import type { ChangeEvent } from "react";
 import { forwardRef, useMemo } from "react";
 
-import { actionsMap } from "../constants";
+import { actionsMap, allowedInputValues } from "../constants";
 import { useCalculator } from "../hooks/useCalculator";
 
 export const CalculatorScreen = forwardRef<HTMLDivElement>(({}, ref) => {
@@ -12,29 +12,8 @@ export const CalculatorScreen = forwardRef<HTMLDivElement>(({}, ref) => {
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
-    const allowedValues = [
-      "0",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "+",
-      "-",
-      "*",
-      "/",
-      "(",
-      ")",
-      "^",
-      ".",
-      "%",
-    ];
-
-    if (!allowedValues.includes(value)) return;
+    const isAllowed = allowedInputValues.includes(value);
+    if (!isAllowed) return;
 
     const token = value in actionsMap ? actionsMap[value] : Number(value);
     addToken(token);
