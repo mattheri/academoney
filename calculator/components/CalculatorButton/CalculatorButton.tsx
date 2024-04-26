@@ -15,6 +15,7 @@ type Props = PropsWithRef<
     {
       className?: string;
       action: Action | number;
+      ariaLabel: string;
     } & CalculatorButtonVariantProps
   >
 >;

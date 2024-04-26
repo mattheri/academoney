@@ -4,7 +4,7 @@ import type { FC, PropsWithChildren } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Action, CalculatorProps, CalculatorState } from "../calculator";
-import { allowedKeys } from "../constants";
+import { allowedKeys, keyboardActionsMap } from "../constants";
 import { CalculatorContext } from "../context/CalculatorContext";
 import { CalculatorService } from "../services/CalculatorService";
 
@@ -89,21 +89,8 @@ export const CalculatorContextProvider: FC<Props> = ({
 
       event.preventDefault();
 
-      const actions: Record<string, Action> = {
-        Enter: Action.Equal,
-        "+": Action.Add,
-        "-": Action.Subtract,
-        "*": Action.Multiply,
-        "/": Action.Divide,
-        "^": Action.Exponent,
-        ".": Action.Decimal,
-        "(": Action.ParenthesisOpen,
-        ")": Action.ParenthesisClose,
-        Backspace: Action.Clear,
-        Delete: Action.Clear,
-      };
-
-      const action = key in actions ? actions[key] : parseInt(key, 10);
+      const action =
+        key in keyboardActionsMap ? keyboardActionsMap[key] : parseInt(key, 10);
       addToken(action);
     },
     [addToken]

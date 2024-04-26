@@ -11,7 +11,7 @@ export const tokens = {
 	[Action.ParenthesisOpen]: "(",
 	[Action.ParenthesisClose]: ")",
 	[Action.Percent]: "%",
-}
+} as const;
 
 export const actionsMap: Record<string, Action> = {
 	"+": Action.Add,
@@ -23,7 +23,21 @@ export const actionsMap: Record<string, Action> = {
 	"^": Action.Exponent,
 	".": Action.Decimal,
 	"%": Action.Percent,
-};
+} as const;
+
+export const keyboardActionsMap: Record<string, Action> = {
+	Enter: Action.Equal,
+	"+": Action.Add,
+	"-": Action.Subtract,
+	"*": Action.Multiply,
+	"/": Action.Divide,
+	"^": Action.Exponent,
+	".": Action.Decimal,
+	"(": Action.ParenthesisOpen,
+	")": Action.ParenthesisClose,
+	Backspace: Action.Clear,
+	Delete: Action.Clear,
+} as const;
 
 export const allowedKeys = [
 	"Enter",
@@ -38,7 +52,7 @@ export const allowedKeys = [
 	"Backspace",
 	"Delete",
 	...Array.from({ length: 10 }, (_, i) => i.toString()),
-];
+] as const;
 
 export const allowedInputValues = [
 	"0",
@@ -60,4 +74,19 @@ export const allowedInputValues = [
 	"^",
 	".",
 	"%",
-]
+] as const;
+
+export const ariaLabels = {
+	[Action.Add]: "Add",
+	[Action.Subtract]: "Subtract",
+	[Action.Multiply]: "Multiply",
+	[Action.Divide]: "Divide",
+	[Action.Exponent]: "Exponent",
+	[Action.Decimal]: "Decimal",
+	[Action.Equal]: "Equal",
+	[Action.ParenthesisOpen]: "Open parenthesis",
+	[Action.ParenthesisClose]: "Close parenthesis",
+	[Action.Percent]: "Percent",
+	[Action.Clear]: "Clear",
+	[Action.ClearMemory]: "Clear memory",
+} as const;

@@ -1,6 +1,7 @@
 import type { FC } from "react";
 
 import { Action, CalculatorProps } from "../calculator";
+import { ariaLabels } from "../constants";
 import { CalculatorButton } from "./CalculatorButton/CalculatorButton";
 import { CalculatorPad } from "./CalculatorPad";
 import { CalculatorProvider } from "./CalculatorProvider";
@@ -18,78 +19,126 @@ export const Calculator: FC<Props> = ({ autoInit, focusKeyboardInputs }) => {
       <CalculatorScreen />
       <CalculatorPad>
         <CalculatorRow>
-          <CalculatorButton variant="operator" action={Action.Clear}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.Clear]}
+            variant="operator"
+            action={Action.Clear}
+          >
             C
           </CalculatorButton>
-          <CalculatorButton variant="operator" action={Action.ClearMemory}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.ClearMemory]}
+            variant="operator"
+            action={Action.ClearMemory}
+          >
             CM
           </CalculatorButton>
-          <CalculatorButton variant="operator" action={Action.Exponent}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.Exponent]}
+            variant="operator"
+            action={Action.Exponent}
+          >
             ^
           </CalculatorButton>
-          <CalculatorButton variant="operator" action={Action.ParenthesisOpen}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.ParenthesisOpen]}
+            variant="operator"
+            action={Action.ParenthesisOpen}
+          >
             (
           </CalculatorButton>
-          <CalculatorButton variant="operator" action={Action.ParenthesisClose}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.ParenthesisClose]}
+            variant="operator"
+            action={Action.ParenthesisClose}
+          >
             )
           </CalculatorButton>
-          <CalculatorButton variant="operator" action={Action.Divide}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.Divide]}
+            variant="operator"
+            action={Action.Divide}
+          >
             /
           </CalculatorButton>
         </CalculatorRow>
         <CalculatorRow>
-          <CalculatorButton variant="numeric" action={7}>
+          <CalculatorButton ariaLabel="7" variant="numeric" action={7}>
             7
           </CalculatorButton>
-          <CalculatorButton variant="numeric" action={8}>
+          <CalculatorButton ariaLabel="8" variant="numeric" action={8}>
             8
           </CalculatorButton>
-          <CalculatorButton variant="numeric" action={9}>
+          <CalculatorButton ariaLabel="9" variant="numeric" action={9}>
             9
           </CalculatorButton>
-          <CalculatorButton variant="operator" action={Action.Multiply}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.Multiply]}
+            variant="operator"
+            action={Action.Multiply}
+          >
             *
           </CalculatorButton>
         </CalculatorRow>
         <CalculatorRow>
-          <CalculatorButton variant="numeric" action={4}>
+          <CalculatorButton ariaLabel="4" variant="numeric" action={4}>
             4
           </CalculatorButton>
-          <CalculatorButton variant="numeric" action={5}>
+          <CalculatorButton ariaLabel="5" variant="numeric" action={5}>
             5
           </CalculatorButton>
-          <CalculatorButton variant="numeric" action={6}>
+          <CalculatorButton ariaLabel="6" variant="numeric" action={6}>
             6
           </CalculatorButton>
-          <CalculatorButton variant="operator" action={Action.Subtract}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.Subtract]}
+            variant="operator"
+            action={Action.Subtract}
+          >
             -
           </CalculatorButton>
         </CalculatorRow>
         <CalculatorRow>
-          <CalculatorButton variant="numeric" action={1}>
+          <CalculatorButton ariaLabel="1" variant="numeric" action={1}>
             1
           </CalculatorButton>
-          <CalculatorButton variant="numeric" action={2}>
+          <CalculatorButton ariaLabel="2" variant="numeric" action={2}>
             2
           </CalculatorButton>
-          <CalculatorButton variant="numeric" action={3}>
+          <CalculatorButton ariaLabel="3" variant="numeric" action={3}>
             3
           </CalculatorButton>
-          <CalculatorButton variant="operator" action={Action.Add}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.Add]}
+            variant="operator"
+            action={Action.Add}
+          >
             +
           </CalculatorButton>
         </CalculatorRow>
         <CalculatorRow>
-          <CalculatorButton variant="numeric" action={0}>
+          <CalculatorButton ariaLabel="0" variant="numeric" action={0}>
             0
           </CalculatorButton>
-          <CalculatorButton variant="operator" action={Action.Percent}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.Percent]}
+            variant="operator"
+            action={Action.Percent}
+          >
             %
           </CalculatorButton>
-          <CalculatorButton variant="operator" action={Action.Decimal}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.Decimal]}
+            variant="operator"
+            action={Action.Decimal}
+          >
             .
           </CalculatorButton>
-          <CalculatorButton variant="equal" action={Action.Equal}>
+          <CalculatorButton
+            ariaLabel={ariaLabels[Action.Equal]}
+            variant="equal"
+            action={Action.Equal}
+          >
             =
           </CalculatorButton>
         </CalculatorRow>
