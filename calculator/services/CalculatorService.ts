@@ -141,7 +141,7 @@ export class CalculatorService {
     }
 
     try {
-      this.total = this.eval!(this.tokens.join(""));
+      this.total = this.eval!(this.tokens.join("")) ?? 0;
     } catch (e) {
       const error = e as Error;
 
