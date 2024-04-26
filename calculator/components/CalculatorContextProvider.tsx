@@ -38,17 +38,6 @@ export const CalculatorContextProvider: FC<Props> = ({
     [calcState, calculator]
   );
 
-  const calculate = () => {
-    if (!calcState.initialized) return;
-
-    calculator.calculate();
-    setCalcState({
-      ...calcState,
-      total: calculator.total,
-      tokens: calculator.tokens,
-    });
-  };
-
   const onKeydown = useCallback(
     (event: KeyboardEvent) => {
       const { key } = event;
