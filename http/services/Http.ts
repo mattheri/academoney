@@ -94,14 +94,18 @@ export class Http implements IHttp {
     }
   }
 
-  private createRequest<Method extends HttpMethods, T>(method: Method) {
+  private createRequest<Method extends HttpMethods, T>(
+    method: Method,
+    url: ReqInit,
+    init?: HttpRequestInitMap[Method]
+  ) {
     const abortController = new AbortController();
     const signal = abortController.signal;
     signal.addEventListener("abort", this.onAbort(this));
 
     return {
       cancel: abortController.abort.bind(abortController),
-      execute: async (url?: ReqInit, init?: HttpRequestInitMap[Method]) => {
+      execute: async () => {
         const reqInit: RequestInit = {
           ...init,
           headers: this.handleHeaders(init?.headers),
@@ -122,37 +126,22 @@ export class Http implements IHttp {
   }
 
   GET<T>(url: ReqInit, init?: HttpRequestInitMap["GET"]) {
-    const req = this.createRequest<"GET", T>("GET");
-    req.execute = req.execute.bind(this, url, init);
-
-    return req;
+    return this.createRequest<"GET", T>("GET", url, init);
   }
 
   POST<T>(url: ReqInit, init?: HttpRequestInitMap["POST"]) {
-    const req = this.createRequest<"POST", T>("POST");
-    req.execute = req.execute.bind(this, url, init);
-
-    return req;
+    return this.createRequest<"POST", T>("POST", url, init);
   }
 
   PUT<T>(url: ReqInit, init?: HttpRequestInitMap["PUT"]) {
-    const req = this.createRequest<"PUT", T>("PUT");
-    req.execute = req.execute.bind(this, url, init);
-
-    return req;
+    return this.createRequest<"PUT", T>("PUT", url, init);
   }
 
   PATCH<T>(url: ReqInit, init?: HttpRequestInitMap["PATCH"]) {
-    const req = this.createRequest<"PATCH", T>("PATCH");
-    req.execute = req.execute.bind(this, url, init);
-
-    return req;
+    return this.createRequest<"PATCH", T>("PATCH", url, init);
   }
 
   DELETE<T>(url: ReqInit, init?: HttpRequestInitMap["DELETE"]) {
-    const req = this.createRequest<"DELETE", T>("DELETE");
-    req.execute = req.execute.bind(this, url, init);
-
-    return req;
+    return this.createRequest<"DELETE", T>("DELETE", url, init);
   }
 }
