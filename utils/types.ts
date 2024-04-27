@@ -17,3 +17,14 @@ export type LayoutProps<
 export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 export type RequiredBy<T, K extends keyof T> = Omit<T, K> &
   Required<Pick<T, K>>;
+
+/**
+ * Add environment variables types to NodeJS.ProcessEnv
+ */
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      API_URL: string;
+    }
+  }
+}
