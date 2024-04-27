@@ -1,5 +1,5 @@
 "use client"
-
+import styles from './page.module.css';
 import React, { useState } from 'react';
 
 import type { FormEventHandler } from "react";
@@ -24,7 +24,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div>
+    <div className="lg  m-auto">
       <h1>Contactez-nous</h1>
       {submitted ? (
         <p>Merci pour votre message ! Nous vous répondrons bientôt.</p>
