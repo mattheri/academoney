@@ -47,7 +47,7 @@ export class Http implements IHttp {
 
   private onAbort(self: this) {
     return function (this: AbortSignal, ev: Event) {
-      self.logInfo(`Request aborted, ${ev.type}`);
+      self.logInfo(`Request aborted, ${JSON.stringify(this.reason, null, 2)}`);
     };
   }
 
