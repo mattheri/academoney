@@ -119,7 +119,6 @@ export class Http implements IHttp {
         if (body) reqInit.body = body;
 
         const response = await fetch(this.handleUrl(url!), reqInit);
-        console.log(response);
         return this.unpackResponse<T>(response);
       },
     };
