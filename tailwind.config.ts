@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin"
+import plugin from "tailwindcss/plugin";
 
 const config: Config = {
   content: [
@@ -11,37 +11,47 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ['primary-red']: '#ef3832',
-        ['accent-red']: '#bf0c1d',
-        ['primary-blue']: '#092d74',
-        ['accent-blue']: '#dfcce4',
-        ['white']: '#ffffff',
-        ['light-gray']: '#e7e7e4',
-      }
-    }
+        ["primary-red"]: "#ef3832",
+        ["accent-red"]: "#bf0c1d",
+        ["primary-blue"]: "#092d74",
+        ["accent-blue"]: "#dfcce4",
+        ["white"]: "#ffffff",
+        ["light-gray"]: "#e7e7e4",
+      },
+      fontFamily: {
+        sans: ["var(--font-1, sans-serif)"],
+        accent: ["var(--font-2, sans-serif)"],
+      },
+    },
   },
   plugins: [
     plugin(function ({ matchUtilities, theme }) {
-      matchUtilities({
-        'col-gap': (value) => {
-          return {
-            columnGap: value,
-          }
+      matchUtilities(
+        {
+          "col-gap": (value) => {
+            return {
+              columnGap: value,
+            };
+          },
+        },
+        {
+          values: theme("spacing"),
         }
-      }, {
-        values: theme('spacing'),
-      })
+      );
     }),
     plugin(function ({ matchUtilities, theme }) {
-      matchUtilities({
-        'row-gap': (value) => {
-          return {
-            rowGap: value,
-          }
+      matchUtilities(
+        {
+          "row-gap": (value) => {
+            return {
+              rowGap: value,
+            };
+          },
+        },
+        {
+          values: theme("spacing"),
         }
-      }, {
-        values: theme('spacing'),
-      })
+      );
     }),
   ],
 };
