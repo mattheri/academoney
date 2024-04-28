@@ -1,146 +1,179 @@
-import type {
-  HttpHeaders,
-  HttpInit,
-  HttpMethods,
-  HttpRequestInitMap,
-  HttpResponse,
-  IHttp,
-  ReqInit,
-} from "../http";
+import type { AxiosInstance } from "axios";
+import axios from "axios";
 
-export class Http implements IHttp {
-  constructor(private init?: HttpInit) {}
+import type {
+  CancellableHttpResponse,
+  HttpInit,
+  HttpRequestInit,
+} from "../http";
+import { HttpMethod } from "../http";
+
+axios.create();
+export class Http {
+  private instance: AxiosInstance;
+
+  constructor(private init?: HttpInit) {
+    this.instance = axios.create(init);
+
+    this.instance.interceptors.request.use(
+      (config) => {
+        this.logInfo(`Request: ${config.method?.toUpperCase()} ${config.url}`);
+        return config;
+      },
+      (error) => {
+        this.logError(`Request error: ${error.message}`);
+        return Promise.reject(error);
+      }
+    );
+
+    this.instance.interceptors.response.use(
+      (response) => {
+        this.logInfo(
+          `Response: ${
+            response.status
+          } ${response.config.method?.toUpperCase()} ${response.config.url}`
+        );
+        return response;
+      },
+      (error) => {
+        this.logError(`Response error: ${error.message}`);
+        return Promise.reject(error);
+      }
+    );
+  }
 
   private logInfo(message: string) {
-    console.info(`[Http Info][${new Date().toISOString()}] ${message}`);
+    console.info(`[Http] [${new Date().toISOString()}] ${message}`);
   }
 
   private logError(message: string) {
-    console.error(`[Http Error][${new Date().toISOString()}] ${message}`);
+    console.error(`[Http] [${new Date().toISOString()}] ${message}`);
   }
 
-  private handleUrl(reqInit: ReqInit) {
-    let url =
-      reqInit instanceof Request ? new URL(reqInit.url) : new URL(reqInit);
+  private get baseUrl() {
+    return this.instance.defaults.baseURL;
+  }
 
-    if (this.init?.baseUrl) {
-      url =
-        reqInit instanceof Request
-          ? new URL(reqInit.url, this.init.baseUrl)
-          : new URL(reqInit, this.init.baseUrl);
+  private handeUrl(url: RequestInfo | URL) {
+    let urlStr: string;
+    const baseUrl = this.baseUrl;
+
+    if (url instanceof URL) {
+      urlStr = url.toString();
+    } else if (url instanceof Request) {
+      urlStr = url.url;
+    } else {
+      urlStr = url;
     }
 
-    return url;
+    if (!baseUrl) return urlStr;
+
+    const base = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+    const path = urlStr.startsWith("/") ? urlStr.slice(1) : urlStr;
+
+    return `${base}/${path}`;
   }
 
-  private handleHeaders(headers: HttpHeaders) {
-    return {
-      ...headers,
-      "Content-Type": "application/json",
-      ...(this.init?.headers ?? {}),
-    };
-  }
-
-  private handleBody(body?: unknown) {
-    return body ? JSON.stringify(body) : null;
-  }
-
-  private onAbort(self: this) {
-    return function (this: AbortSignal, ev: Event) {
-      self.logInfo(`Request aborted, ${JSON.stringify(this.reason, null, 2)}`);
-    };
-  }
-
-  private async unpackResponse<T>(
-    response: Response
-  ): Promise<HttpResponse<T>> {
-    const { ok, status, statusText, headers } = response;
-    try {
-      if (!ok) throw new Error(`${status} - ${statusText}`);
-
-      const json = (await response.json()) as T;
-      const results: HttpResponse<T> = {
-        data: json,
-        headers,
-        status,
-        statusText,
-      };
-      this.logInfo(
-        `Response ${status} - ${statusText} - ${JSON.stringify(
-          results,
-          null,
-          2
-        )}`
-      );
-      return results;
-    } catch (e) {
-      const error = e as Error;
-      const results: HttpResponse<T> = {
-        data: null,
-        headers,
-        status,
-        statusText,
-        error,
-      };
-
-      this.logError(
-        `Response ${status} - ${statusText} - ${JSON.stringify(
-          results,
-          null,
-          2
-        )}`
-      );
-      return results;
-    }
-  }
-
-  private createRequest<Method extends HttpMethods, T>(
-    method: Method,
-    url: ReqInit,
-    init?: HttpRequestInitMap[Method]
+  private handleInit<T extends HttpMethod>(
+    init?: HttpRequestInit<T>,
+    signal?: AbortSignal
   ) {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    signal.addEventListener("abort", this.onAbort(this));
+    if (!init) return {};
+
+    const headers = new Headers(init.headers);
+    const body =
+      "body" in init && init.body ? JSON.stringify(init.body) : undefined;
 
     return {
-      cancel: abortController.abort.bind(abortController),
-      execute: async () => {
-        const reqInit: RequestInit = {
-          ...init,
-          headers: this.handleHeaders(init?.headers),
-          method,
-          signal,
-        };
-
-        this.logInfo(`Requesting ${method} ${url}`);
-
-        const body = this.handleBody(init && "body" in init && init.body);
-        if (body) reqInit.body = body;
-
-        const response = await fetch(this.handleUrl(url!), reqInit);
-        return this.unpackResponse<T>(response);
-      },
+      ...init,
+      headers,
+      body,
+      signal,
     };
   }
 
-  GET<T>(url: ReqInit, init?: HttpRequestInitMap["GET"]) {
-    return this.createRequest<"GET", T>("GET", url, init);
+  private async request<T>(
+    method: HttpMethod,
+    info: RequestInfo | URL,
+    init?: HttpRequestInit<HttpMethod>,
+    signal?: AbortSignal
+  ) {
+    const response = await this.instance.request<T>({
+      url: this.handeUrl(info),
+      ...this.handleInit(init, signal),
+      method,
+    });
+
+    return {
+      data: response.data,
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers,
+    };
   }
 
-  POST<T>(url: ReqInit, init?: HttpRequestInitMap["POST"]) {
-    return this.createRequest<"POST", T>("POST", url, init);
+  async GET<T>(
+    info: RequestInfo | URL,
+    init?: HttpRequestInit<HttpMethod.GET>
+  ): Promise<CancellableHttpResponse<T>> {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    return {
+      cancel: () => controller.abort(),
+      ...(await this.request<T>(HttpMethod.GET, info, init, signal)),
+    };
   }
 
-  PUT<T>(url: ReqInit, init?: HttpRequestInitMap["PUT"]) {
-    return this.createRequest<"PUT", T>("PUT", url, init);
+  async POST<T>(
+    info: RequestInfo | URL,
+    init?: HttpRequestInit<HttpMethod.POST>
+  ): Promise<CancellableHttpResponse<T>> {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    return {
+      cancel: () => controller.abort(),
+      ...(await this.request<T>(HttpMethod.POST, info, init, signal)),
+    };
   }
 
-  PATCH<T>(url: ReqInit, init?: HttpRequestInitMap["PATCH"]) {
-    return this.createRequest<"PATCH", T>("PATCH", url, init);
+  async PUT<T>(
+    info: RequestInfo | URL,
+    init?: HttpRequestInit<HttpMethod.PUT>
+  ): Promise<CancellableHttpResponse<T>> {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    return {
+      cancel: () => controller.abort(),
+      ...(await this.request<T>(HttpMethod.PUT, info, init, signal)),
+    };
   }
 
-  DELETE<T>(url: ReqInit, init?: HttpRequestInitMap["DELETE"]) {
-    return this.createRequest<"DELETE", T>("DELETE", url, init);
+  async PATCH<T>(
+    info: RequestInfo | URL,
+    init?: HttpRequestInit<HttpMethod.PATCH>
+  ): Promise<CancellableHttpResponse<T>> {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    return {
+      cancel: () => controller.abort(),
+      ...(await this.request<T>(HttpMethod.PATCH, info, init, signal)),
+    };
+  }
+
+  async DELETE<T>(
+    info: RequestInfo | URL,
+    init?: HttpRequestInit<HttpMethod.DELETE>
+  ): Promise<CancellableHttpResponse<T>> {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    return {
+      cancel: () => controller.abort(),
+      ...(await this.request<T>(HttpMethod.DELETE, info, init, signal)),
+    };
   }
 }
