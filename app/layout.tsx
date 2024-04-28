@@ -1,10 +1,8 @@
-import type { ReactNode } from "react";
+import "@/styles/global.css";
 
-type Props = {
-  children: ReactNode;
-};
+import type { LayoutProps } from "@/utils/types";
 
-export default function RootLayout({ children }: Props) {
+export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body>{children}</body>
