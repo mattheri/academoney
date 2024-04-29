@@ -24,7 +24,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="max-w-lg h-full text-center m-auto p-4 border-black border-2">
+    <div className="max-w-lg h-full text-center m-auto p-4 mt-20 border-black border-2">
       <h1 className='text-2xl mb-2 mt-2'>Contactez-nous</h1>
       <p className=' mb-2 mt-2'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
       {submitted ? (
