@@ -8,7 +8,6 @@ import type {
 } from "../http";
 import { HttpMethod } from "../http";
 
-axios.create();
 export class Http {
   private instance: AxiosInstance;
 
