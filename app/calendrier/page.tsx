@@ -34,10 +34,11 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
 
   return (
     <div>
-      <h1>{format(currentMonth, 'MMMM yyyy')}</h1>
+      
       <div>
-        <button onClick={handlePrevMonth}>Previous Month</button>
-        <button onClick={handleNextMonth}>Next Month</button>
+        <button onClick={handlePrevMonth}>-</button>
+        <h1>{format(currentMonth, 'MMMM yyyy')}</h1>
+        <button onClick={handleNextMonth}>+</button>
       </div>
       <table>
         <thead>
