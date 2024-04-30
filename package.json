@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "cva": "npm:class-variance-authority@^0.7.0",
-    "lodash": "^4.17.21",
     "mathjs": "^12.4.2",
     "next": "14.2.2",
     "react": "^18",
