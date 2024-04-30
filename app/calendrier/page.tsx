@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
-import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth } from 'date-fns';
+import { format, addMonths, subMonths, addDays, startOfWeek, endOfWeek, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth } from 'date-fns';
 
 interface Event {
   date: Date;
@@ -14,9 +14,15 @@ interface CalendarProps {
 const Calendar: React.FC<CalendarProps> = ({ events }) => {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
+
+  const firstDayOfMonth = startOfMonth(currentMonth);
+  const lastDayOfMonth = endOfMonth(currentMonth);
+  const firstDayOfWeek = startOfWeek(firstDayOfMonth);
+  const lastDayOfWeek = endOfWeek(lastDayOfMonth);
+
   const daysInMonth = eachDayOfInterval({
-    start: startOfMonth(currentMonth),
-    end: endOfMonth(currentMonth),
+    start: firstDayOfWeek,
+    end: lastDayOfWeek,
   });
 
   const handleNextMonth = () => {
@@ -29,12 +35,10 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
 
   const handleDateClick = (date: Date) => {
     console.log('Clicked date:', date);
-   
   };
 
   return (
     <div>
-      
       <div>
         <button onClick={handlePrevMonth}>-</button>
         <h1>{format(currentMonth, 'MMMM yyyy')}</h1>
@@ -52,7 +56,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
           {Array(Math.ceil(daysInMonth.length / 7)).fill(null).map((_, weekIndex) => (
             <tr key={weekIndex}>
               {Array(7).fill(null).map((_, dayIndex) => {
-                const day = daysInMonth[weekIndex * 7 + dayIndex];
+                const day = addDays(firstDayOfWeek, weekIndex * 7 + dayIndex);
                 return (
                   <td
                     key={dayIndex}
