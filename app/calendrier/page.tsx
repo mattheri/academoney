@@ -29,7 +29,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
 
   const handleDateClick = (date: Date) => {
     console.log('Clicked date:', date);
-    // Logic to handle date click
+   
   };
 
   return (
@@ -42,7 +42,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
       <table>
         <thead>
           <tr>
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+            {['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'].map((day) => (
               <th key={day}>{day}</th>
             ))}
           </tr>
