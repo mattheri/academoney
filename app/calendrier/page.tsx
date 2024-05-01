@@ -14,8 +14,8 @@ interface CalendarProps {
 
 const Calendar: React.FC<CalendarProps> = ({ events }) => {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-
-
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null); 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
   const firstDayOfMonth = startOfMonth(currentMonth);
   const lastDayOfMonth = endOfMonth(currentMonth);
   const firstDayOfWeek = startOfWeek(firstDayOfMonth);
@@ -35,21 +35,22 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
   };
 
   const handleDateClick = (date: Date) => {
-    console.log('Clicked date:', date);
+    setSelectedDate(date); 
+    setIsModalOpen(true); 
   };
 
   return (
-    <div>
-      <div>
+    <div className="mx-auto max-w-xl">
+      <div className="flex justify-between items-center mb-4">
         <button onClick={handlePrevMonth}>-</button>
         <h1>{format(currentMonth, 'MMMM yyyy')}</h1>
         <button onClick={handleNextMonth}>+</button>
       </div>
-      <table>
+      <table className="border border-separate border-black border-spacing-2 rounded-md">
         <thead>
           <tr>
             {['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'].map((day) => (
-              <th key={day}>{day}</th>
+              <th key={day} className="border border-black p-2 rounded-md">{day}</th>
             ))}
           </tr>
         </thead>
@@ -62,7 +63,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
                   <td
                     key={dayIndex}
                     onClick={() => handleDateClick(day)}
-                    className={isSameMonth(day, currentMonth) ? '' : 'other-month'}
+                    className={`border border-black p-2 ${isSameMonth(day, currentMonth) ? '' : 'other-month'}`}
                   >
                     {day && format(day, 'd')}
                   </td>
@@ -73,7 +74,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
         </tbody>
       </table>
       <div>
-        <h2>Events</h2>
+        <h2>Évènements:</h2>
         <ul>
           {events?.length > 0 ? (
             events.map((event, index) => (
@@ -82,10 +83,20 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
               </li>
             ))
           ) : (
-            <li>No events</li>
+            <li>Aucun évènements en cours</li>
           )}
         </ul>
       </div>
+      {isModalOpen && (
+        
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+          <div className="bg-white p-4 rounded-md">
+            <h2>Date sélectionnée: {selectedDate && format(selectedDate, 'dd MMMM yyyy')}</h2>
+            {}
+            <button onClick={() => setIsModalOpen(false)}>Fermer</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
