@@ -1,60 +1,26 @@
-"use client"
-
-import React, { useState, FormEvent } from 'react';
+import { AuthService, signIn } from "@/auth";
+import { Form } from "@/common";
+import { routes } from "@/routes";
 
 const LoginPage = () => {
-  // Utilisation du hook useState pour gérer les états de email et password
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  // Fonction pour gérer la soumission du formulaire
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Logique de connexion 
-    console.log('Connexion avec:', email, password);
-  };
-
- 
   return (
     <div>
-      <div>
-        <div>
-          <h2>Logo</h2> 
-        </div>
-        <form onSubmit={handleSubmit}> 
-          <div>
-            <label htmlFor="email">Courriel</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)} // Mise à jour de l'état email lors de la saisie de l'utilisateur
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Mot de passe</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} // Mise à jour de l'état password lors de la saisie de l'utilisateur
-              required
-            />
-          </div>
-          <div>
-            <button type="submit"> 
-              Connexion
-            </button>
-          </div>
-        </form>
-        <div>
-          <a href="#">Inscription</a> 
-        </div>
-      </div>
+      {AuthService.instance.getProvidersMap().map((provider) => (
+        <Form key={provider.id} action={signIn}>
+          <label>Email:</label>
+          <input type="email" required name="email" />
+          <br />
+          <label>Mot de passe:</label>
+          <input type="password" required name="password" />
+          <input type="hidden" name="provider" value={provider.id} />
+          <input type="hidden" name="redirectTo" value={routes.INDEX} />
+          <input type="hidden" name="name" value={provider.name} />
+          <br />
+          <button type="submit">Connexion</button>
+        </Form>
+      ))}
     </div>
   );
 };
-
 
 export default LoginPage;
