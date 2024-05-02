@@ -8,16 +8,61 @@ const LoginForm = () => {
   // Définition des états pour le courriel et le mot de passe
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   // Extraction des fonctions de mise à jour dans le composant pour éviter de les recréer à chaque re-render
-  const onEmailUpdate = (event: ChangeEvent<HTMLInputElement>) => setEmail(event.target.value);
-  const onPasswordUpdate = (event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value);
+  // const onEmailUpdate = (event: ChangeEvent<HTMLInputElement>) => setEmail(event.target.value);
+  // const onPasswordUpdate = (event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value);
 
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (email.trim() === "") {
+      setEmailError("Veuillez entrer votre courriel.");
+    } else {
+      setEmailError("");
+    }
+
+    if (password.trim() === "") {
+      setPasswordError("Veuillez entrer votre mot de passe.");
+    } else {
+      setPasswordError("");
+    }
+
     console.log("Connexion avec:", email, password);
   };
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+  
+    if (value.trim() === "") {
+      setEmailError("Veuillez entrer votre courriel.");
+    } else if (value.length < 2) {
+      setEmailError("Le courriel doit contenir au moins 2 caractères.");
+    } else if (!validateEmail(value)) {
+      setEmailError("Veuillez entrer un courriel valide.");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+  setPassword(e.target.value);
+  
+  if (e.target.value.trim() === "") {
+    setPasswordError("Veuillez entrer votre mot de passe.");
+  } else {
+    setPasswordError("");
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-50 py-6 flex flex-col justify-center sm:py-12">
@@ -38,16 +83,18 @@ const LoginForm = () => {
                       autoComplete="email"
                       placeholder="Courriel"
                       value={email}
-                      onChange={onEmailUpdate}
+                      onChange={handleEmailChange}
                     />
+                    {emailError && <span className="text-red-500 text-sm">{emailError}</span>}
                     <Input
                       id="password"
                       type="password"
                       autoComplete="current-password"
                       placeholder="Mot de passe"
                       value={password}
-                      onChange={onPasswordUpdate}
+                      onChange={handlePasswordChange}
                     />
+                    {passwordError && <span className="text-red-500 text-sm">{passwordError}</span>}
                   </div>
 
                   <div className="pt-6">
