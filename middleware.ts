@@ -6,11 +6,9 @@ import type { Session } from "next-auth";
 
 export default AuthService.instance.auth((req: NextRequest) => {
   const session = "auth" in req && (req.auth as Session);
-  const now = Date.now();
-  const expires = session ? new Date(session.expires).getTime() : now;
 
-  if (!session || expires <= now) {
-    return NextResponse.rewrite(new URL(routes.auth.LOGIN, req.url));
+  if (!session) {
+    return NextResponse.redirect(new URL(routes.auth.LOGIN, req.url));
   }
 
   return NextResponse.next();

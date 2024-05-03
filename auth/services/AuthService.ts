@@ -1,13 +1,14 @@
 import type { Provider as NextAuthProvider } from "next-auth/providers";
 import type { NextAuthResult, User } from "next-auth";
-import type { ProviderMap, RegisterOptions, SignInOptions } from "../auth";
+import type { AuthError, ProviderMap, RegisterArgs, SignInArgs } from "../auth";
 
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { Provider } from "../auth";
+import { AuthAction, Provider } from "../auth";
 import { Validator } from "./Validator";
 import { routes } from "@/routes";
 import { redirect } from "@/utils";
+import httpClient, { Http, HttpError } from "@/http";
 
 export class AuthService {
   private static _instance: AuthService;
@@ -21,7 +22,10 @@ export class AuthService {
   private signOut!: NextAuthResult["signOut"];
   public auth!: NextAuthResult["auth"];
 
-  constructor(private readonly validator: Validator = new Validator()) {
+  constructor(
+    private readonly http: Http = httpClient,
+    private readonly validator: Validator = new Validator()
+  ) {
     const { handlers, signIn, signOut, auth } = NextAuth({
       providers: this.providers,
       pages: {
@@ -59,31 +63,32 @@ export class AuthService {
     return Credentials({
       name: Provider.Credentials,
       credentials: {
-        username: {},
+        email: {},
         password: {},
+        firstName: {},
+        lastName: {},
+        birthDate: {},
+        phone: {},
+        action: {},
       },
       authorize: async (credentials) => {
-        /**
-         * ! TODO Fetch user from database
-         */
-        const email = String(credentials.username);
-        const password = String(credentials.password);
+        const action = Number(credentials.action) as AuthAction;
 
         let user: User | null = null;
 
-        if (!email || !password) {
+        if (!credentials.email || !credentials.password) {
           return null;
         }
 
-        user = await this.getUserFromDb(email);
-
-        if (!user) {
-          user = await this.createUserInDb({
-            email,
-            password,
-            firstName: "John",
-            isActive: true,
-          });
+        switch (action) {
+          case AuthAction.SignIn:
+            user = await this.signInUser(credentials);
+            break;
+          case AuthAction.Register:
+            user = await this.registerUser(credentials);
+            break;
+          default:
+            break;
         }
 
         return user;
@@ -91,82 +96,110 @@ export class AuthService {
     });
   }
 
-  private async getUserFromDb(email: string) {
-    /**
-     * ! TODO Fetch user from database
-     */
-    return {
-      id: "1",
-      firstName: "John",
-      isActive: true,
-      email,
-      password: "password",
-      addresses: [],
-      transactions: [],
-    };
+  private async signInUser(credentials: Partial<Record<string, unknown>>) {
+    try {
+      const { email } = await this.validator.validateCredentials(credentials);
+      return await this.getUserFromDb(email);
+    } catch (e) {
+      const error = e as HttpError;
+
+      if (await this.validator.validateErrorResponse(error.response)) {
+        const authError = error.response?.data as AuthError;
+        throw {
+          error: authError.message,
+        };
+      }
+      throw error;
+    }
   }
 
-  private async createUserInDb({ email, ...fields }: User) {
-    /**
-     * ! TODO Create user in database
-     */
-    return {
-      id: "1",
-      email,
-      ...fields,
-    };
+  private async registerUser(credentials: Partial<Record<string, unknown>>) {
+    try {
+      const registerCredentials =
+        await this.validator.validateCredentialsWithPasswordConfirm(
+          credentials
+        );
+
+      return this.createUserInDb({
+        ...registerCredentials,
+        isActive: true,
+        birthDate: registerCredentials.birthDate
+          ? new Date(registerCredentials.birthDate)
+          : undefined,
+      });
+    } catch (e) {
+      const error = e as HttpError;
+
+      if (await this.validator.validateErrorResponse(error.response)) {
+        const authError = error.response?.data as AuthError;
+        throw {
+          error: authError.message,
+        };
+      }
+      throw error;
+    }
+  }
+
+  private async getUserFromDb(email: string) {
+    const { data } = await this.http.GET<User>(`/users/email/${email}`);
+
+    return data;
+  }
+
+  private async createUserInDb(user: User) {
+    const { data } = await this.http.POST<User>("/users", {
+      body: JSON.stringify(user),
+    });
+
+    return data;
   }
 
   async registerWithCredentials(
-    id: string,
-    username: string,
-    password: string,
-    confirmPassword: string,
-    { redirectTo }: RegisterOptions
+    { email, password, confirmPassword, redirectTo, ...rest }: RegisterArgs,
+    id: string
   ) {
-    try {
-      await this.validator.validateCredentialsWithPasswordConfirm({
-        username,
-        password,
-        confirmPassword,
-      });
+    let isError = false;
 
-      await this.signIn(id, { username, password });
+    try {
+      await this.signIn(id, { email, password, ...rest });
     } catch (e) {
       console.error(e);
+      isError = true;
     } finally {
-      redirect(redirectTo);
+      if (!isError) redirect(redirectTo);
     }
   }
 
   async signInWithCredentials(
-    username: string,
-    password: string,
-    id: string,
-    { redirectTo }: SignInOptions
+    { email, password, redirectTo, ...rest }: SignInArgs,
+    id: string
   ) {
-    try {
-      await this.validator.validateCredentials({ username, password });
+    let isError = false;
 
+    try {
       await this.signIn(id, {
-        username,
+        email,
         password,
+        ...rest,
         redirect: false,
       });
     } catch (e) {
       console.error(e);
+      isError = true;
     } finally {
-      redirect(redirectTo);
+      if (!isError) redirect(redirectTo);
     }
   }
 
   async signOutUser(redirectTo?: string) {
+    let isError = false;
+
     try {
       await this.signOut({ redirect: false });
     } catch (e) {
       console.error(e);
     } finally {
-      redirect(redirectTo ?? routes.auth.LOGIN);
+      if (!isError) redirect(redirectTo ?? routes.auth.LOGIN);
     }
   }
 

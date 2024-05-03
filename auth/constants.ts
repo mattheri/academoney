@@ -6,4 +6,5 @@ export const validationErrors = {
   PASSWORD_REQUIRED: "Password is required",
   CONFIRM_PASSWORD_REQUIRED: "Confirm password is required",
   PASSWORD_MIN_LENGTH: "Password must be at least 8 characters long",
+  FIRST_NAME_REQUIRED: "First name is required",
 } as const;

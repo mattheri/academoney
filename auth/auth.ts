@@ -124,6 +124,41 @@ export type RegisterOptions = {
   redirectTo: string;
 };
 
+export type RegisterArgs = {
+  firstName: string;
+  lastName?: string;
+  birthDate?: Date;
+  phone?: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  redirectTo: string;
+  action: AuthAction.Register;
+};
+
+export type SignInArgs = {
+  email: string;
+  password: string;
+  redirectTo: string;
+  action: AuthAction.SignIn;
+};
+
+export type UserNotFoundError = {
+  code: 404;
+  message: string;
+};
+
+export enum AuthAction {
+  SignIn,
+  SignOut,
+  Register,
+}
+
+export type AuthError = {
+  code: number;
+  message: string;
+};
+
 declare module "next-auth" {
   interface Session {
     user: User & DefaultSession["user"];

@@ -1,11 +1,12 @@
-import { object, ref, string, ValidationError } from "yup";
 import type { Credentials } from "../auth";
+
+import { number, object, ref, string, ValidationError } from "yup";
 import { validationErrors } from "../constants";
 
 export class Validator {
-  private get credentialsSchema() {
+  static get credentialsSchema() {
     return object().shape({
-      username: string()
+      email: string()
         .email(validationErrors.INVALID_EMAIL)
         .required(validationErrors.EMAIL_REQUIRED),
       password: string()
@@ -14,13 +15,26 @@ export class Validator {
     });
   }
 
-  private get passwordConfirmSchema() {
+  static get errorResponseSchema() {
+    return object().shape({
+      data: object().shape({
+        statusCode: number().required().is([404]),
+        message: string().required(),
+      }),
+    });
+  }
+
+  static get registerCredentialsSchema() {
     return object()
       .shape({
         confirmPassword: string().oneOf(
           [ref("password")],
           validationErrors.INVALID_CONFIRM_PASSWORD
         ),
+        firstName: string().required(validationErrors.FIRST_NAME_REQUIRED),
+        lastName: string().optional(),
+        birthDate: string().optional(),
+        phone: string().optional(),
       })
       .concat(this.credentialsSchema);
   }
@@ -40,12 +54,12 @@ export class Validator {
     }, {});
   }
 
-  async validateCredentials({ username, password }: Credentials) {
+  async validateCredentials(args: Partial<Record<string, unknown>>) {
     try {
-      return await this.credentialsSchema.validate(
-        { username, password },
-        { abortEarly: false, disableStackTrace: true }
-      );
+      return await Validator.credentialsSchema.validate(args, {
+        abortEarly: false,
+        disableStackTrace: true,
+      });
     } catch (e) {
       const error = e as Error;
 
@@ -56,18 +70,29 @@ export class Validator {
     }
   }
 
-  async validateCredentialsWithPasswordConfirm({
-    username,
-    password,
-    confirmPassword,
-  }: Credentials & { confirmPassword: string }) {
-    return await this.passwordConfirmSchema.validate(
-      {
-        username,
-        password,
-        confirmPassword,
-      },
-      { abortEarly: false, disableStackTrace: true }
-    );
+  async validateCredentialsWithPasswordConfirm(
+    args: Partial<Record<string, unknown>>
+  ) {
+    return await Validator.registerCredentialsSchema.validate(args, {
+      abortEarly: false,
+      disableStackTrace: true,
+    });
+  }
+
+  async validateErrorResponse(data: any) {
+    try {
+      return await Validator.errorResponseSchema.validate(data, {
+        abortEarly: false,
+        disableStackTrace: true,
+      });
+    } catch (e) {
+      const error = e as Error;
+      console.log(error);
+
+      if (error instanceof ValidationError) {
+        throw this.formatError(error);
+      }
+      throw error;
+    }
   }
 }
