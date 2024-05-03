@@ -14,8 +14,17 @@ const BudgetPage: React.FC = () => {
                       'Soins personnels',
                       'Épargne',
                       'Vêtements',
-                      'Loisirs',
+                      'Loisirs',    
+                      'Salaire',
+                      'Prestations',
+                      'Indemnisations',
+                      'Remboursements',
+                      'Bourses',
                       'Autres'];
+
+  const revenusDepenses = ['Revenu',
+                           'Dépense'
+  ];
 
   // Rendu du composant
   return (
@@ -23,6 +32,7 @@ const BudgetPage: React.FC = () => {
       <FormInput label="Date" type="date" />
       <FormInput label="Description" type="text" />
       <FormInput label="" type="select" options={categories} />
+      <FormInput label="" type="select" options={revenusDepenses} />
       <FormInput label="Montant" type="number" />
     </div>
   );
