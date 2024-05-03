@@ -38,5 +38,3 @@ next-env.d.ts
 
 # package
 package-lock.json
-
-.gitignore
