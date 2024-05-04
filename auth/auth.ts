@@ -1,4 +1,7 @@
 import type { DefaultSession, User } from "next-auth";
+import type { Provider as NextAuthProvider } from "next-auth/providers";
+
+import { AuthService } from "./services/AuthService";
 
 export type Bank = {
   id: number;
@@ -158,6 +161,18 @@ export type AuthError = {
   code: number;
   message: string;
 };
+
+export interface AuthProvider {
+  signIn(...args: any[]): Promise<void>;
+  register(...args: any[]): Promise<void>;
+  signOut(redirectTo?: string): Promise<void>;
+  provider: NextAuthProvider;
+  name: Provider;
+}
+
+export interface Auth {
+  Credentials: AuthProvider;
+}
 
 declare module "next-auth" {
   interface Session {

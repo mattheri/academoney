@@ -1,33 +1,41 @@
-import type { Provider as NextAuthProvider } from "next-auth/providers";
-import type { NextAuthResult, User } from "next-auth";
-import type { AuthError, ProviderMap, RegisterArgs, SignInArgs } from "../auth";
-
+import type { NextAuthResult } from "next-auth";
 import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import { AuthAction, Provider } from "../auth";
-import { Validator } from "./Validator";
-import { routes } from "@/routes";
-import { redirect } from "@/utils";
-import httpClient, { Http, HttpError } from "@/http";
+import type { Provider as NextAuthProvider } from "next-auth/providers";
 
-export class AuthService {
+import { routes } from "@/routes";
+
+import type { Auth, AuthProvider, ProviderMap } from "../auth";
+import { CredentialsProvider } from "../providers/CredentialsProvider";
+
+export class AuthService implements Auth {
   private static _instance: AuthService;
 
   static get instance() {
-    return this._instance || (this._instance = new AuthService());
+    return (
+      this._instance ||
+      (this._instance = new AuthService((self) => [
+        new CredentialsProvider(self),
+      ]))
+    );
   }
 
-  handlers!: NextAuthResult["handlers"];
-  private signIn!: NextAuthResult["signIn"];
-  private signOut!: NextAuthResult["signOut"];
+  private providers: AuthProvider[] = [];
+  public Credentials!: AuthProvider;
+  public handlers!: NextAuthResult["handlers"];
+  /**
+   * @description Only to be used internally
+   */
+  public signIn!: NextAuthResult["signIn"];
+  /**
+   * @description Only to be used internally
+   */
+  public signOut!: NextAuthResult["signOut"];
   public auth!: NextAuthResult["auth"];
 
-  constructor(
-    private readonly http: Http = httpClient,
-    private readonly validator: Validator = new Validator()
-  ) {
+  constructor(injector: (self: AuthService) => AuthProvider[]) {
+    this.providers = injector(this);
     const { handlers, signIn, signOut, auth } = NextAuth({
-      providers: this.providers,
+      providers: this.authProviders,
       pages: {
         signIn: routes.auth.LOGIN,
       },
@@ -53,154 +61,14 @@ export class AuthService {
     this.signIn = signIn;
     this.signOut = signOut;
     this.auth = auth;
-  }
 
-  private get providers(): NextAuthProvider[] {
-    return [this.createCredentialsProvider()];
-  }
-
-  private createCredentialsProvider() {
-    return Credentials({
-      name: Provider.Credentials,
-      credentials: {
-        email: {},
-        password: {},
-        firstName: {},
-        lastName: {},
-        birthDate: {},
-        phone: {},
-        action: {},
-      },
-      authorize: async (credentials) => {
-        const action = Number(credentials.action) as AuthAction;
-
-        let user: User | null = null;
-
-        if (!credentials.email || !credentials.password) {
-          return null;
-        }
-
-        switch (action) {
-          case AuthAction.SignIn:
-            user = await this.signInUser(credentials);
-            break;
-          case AuthAction.Register:
-            user = await this.registerUser(credentials);
-            break;
-          default:
-            break;
-        }
-
-        return user;
-      },
+    this.providers.forEach((provider) => {
+      Object.assign(this, { [provider.name]: provider });
     });
   }
 
-  private async signInUser(credentials: Partial<Record<string, unknown>>) {
-    try {
-      const { email } = await this.validator.validateCredentials(credentials);
-      return await this.getUserFromDb(email);
-    } catch (e) {
-      const error = e as HttpError;
-
-      if (await this.validator.validateErrorResponse(error.response)) {
-        const authError = error.response?.data as AuthError;
-        throw {
-          error: authError.message,
-        };
-      }
-      throw error;
-    }
-  }
-
-  private async registerUser(credentials: Partial<Record<string, unknown>>) {
-    try {
-      const registerCredentials =
-        await this.validator.validateCredentialsWithPasswordConfirm(
-          credentials
-        );
-
-      return this.createUserInDb({
-        ...registerCredentials,
-        isActive: true,
-        birthDate: registerCredentials.birthDate
-          ? new Date(registerCredentials.birthDate)
-          : undefined,
-      });
-    } catch (e) {
-      const error = e as HttpError;
-
-      if (await this.validator.validateErrorResponse(error.response)) {
-        const authError = error.response?.data as AuthError;
-        throw {
-          error: authError.message,
-        };
-      }
-      throw error;
-    }
-  }
-
-  private async getUserFromDb(email: string) {
-    const { data } = await this.http.GET<User>(`/users/email/${email}`);
-
-    return data;
-  }
-
-  private async createUserInDb(user: User) {
-    const { data } = await this.http.POST<User>("/users", {
-      body: JSON.stringify(user),
-    });
-
-    return data;
-  }
-
-  async registerWithCredentials(
-    { email, password, confirmPassword, redirectTo, ...rest }: RegisterArgs,
-    id: string
-  ) {
-    let isError = false;
-
-    try {
-      await this.signIn(id, { email, password, ...rest });
-    } catch (e) {
-      console.error(e);
-      isError = true;
-    } finally {
-      if (!isError) redirect(redirectTo);
-    }
-  }
-
-  async signInWithCredentials(
-    { email, password, redirectTo, ...rest }: SignInArgs,
-    id: string
-  ) {
-    let isError = false;
-
-    try {
-      await this.signIn(id, {
-        email,
-        password,
-        ...rest,
-        redirect: false,
-      });
-    } catch (e) {
-      console.error(e);
-      isError = true;
-    } finally {
-      if (!isError) redirect(redirectTo);
-    }
-  }
-
-  async signOutUser(redirectTo?: string) {
-    let isError = false;
-
-    try {
-      await this.signOut({ redirect: false });
-    } catch (e) {
-      console.error(e);
-    } finally {
-      if (!isError) redirect(redirectTo ?? routes.auth.LOGIN);
-    }
+  private get authProviders(): NextAuthProvider[] {
+    return this.providers.map((provider) => provider.provider);
   }
 
   async getSession() {
@@ -208,7 +76,7 @@ export class AuthService {
   }
 
   getProvidersMap(): ProviderMap {
-    return this.providers.map((provider) => {
+    return this.authProviders.map((provider) => {
       if (typeof provider === "function") {
         const { id, name } = provider();
         return { id, name };

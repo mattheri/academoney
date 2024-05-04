@@ -1,4 +1,4 @@
-import { AuthService, signIn } from "@/auth";
+import { AuthService, signInWithCredentials } from "@/auth";
 import { Form } from "@/common";
 import { routes } from "@/routes";
 
@@ -6,7 +6,7 @@ const LoginPage = () => {
   return (
     <div>
       {AuthService.instance.getProvidersMap().map((provider) => (
-        <Form key={provider.id} action={signIn}>
+        <Form key={provider.id} action={signInWithCredentials}>
           <label>Email:</label>
           <input type="email" required name="email" />
           <br />
