@@ -1,17 +1,18 @@
 // components/LoginForm.tsx
-"use client"; 
+"use client";
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import TextInput from "./textInput";
 import Link from 'next/link';
 import Logo from '../components/logo';
 import PageContainer from '../components/pageContainer';
-
+import InscriptionModal from './inscriptionModal';
 
 const LoginForm = () => {
   // Définition des états pour le courriel et le mot de passe
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Extraction des fonctions de mise à jour dans le composant pour éviter de les recréer à chaque re-render
   const onEmailUpdate = (event: ChangeEvent<HTMLInputElement>) => setEmail(event.target.value);
@@ -66,17 +67,22 @@ const LoginForm = () => {
                   </div>
                 </form>
                 <div className="pt-6 text-center">
-                  <Link href="/inscription" legacyBehavior>
-                    <a className="font-medium text-blue-600 hover:text-blue-500">
-                      Inscription
-                    </a>
-                  </Link>
+                  <button
+                    className="font-medium text-blue-600 hover:text-blue-500"
+                    onClick={() => setIsModalOpen(true)}
+                  >
+                    Inscription
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <InscriptionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+  <p>Ceci est un test.</p>
+</InscriptionModal>
+
     </PageContainer>
   );
 };
