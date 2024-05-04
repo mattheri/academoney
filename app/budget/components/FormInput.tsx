@@ -6,6 +6,8 @@ interface FormInputProps {
     label: string;
     type: string;
     options?: string[];
+    onSubmit: (value: any) => void; // Fonction de soumission du formulaire
+    onCancel: () => void; // Fonction d'annulation du formulaire
 }
 
 // Définition du composant avec ses props
@@ -17,6 +19,8 @@ const FormInput: React.FC<FormInputProps> = ({ label, type, options }) =>  {
     const onChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
         setValue(event.target.value);
       };
+
+   
 
 
   // rendu du composant
@@ -37,6 +41,8 @@ const FormInput: React.FC<FormInputProps> = ({ label, type, options }) =>  {
                 className="w-full mt-1 block p-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring"
             />
         )}
+
+        
     </div>
   );
 };
