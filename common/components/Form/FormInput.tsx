@@ -1,4 +1,4 @@
-/* eslint-disable react/display-name */
+
 import type { InputHTMLAttributes, FC } from "react";
 
 import { forwardRef } from "react";
@@ -28,3 +28,5 @@ export const FormInput: FC<Props> = forwardRef<HTMLInputElement, Props>(
     );
   }
 );
+
+FormInput.displayName = "Input";
