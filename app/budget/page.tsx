@@ -1,3 +1,4 @@
+
 import React from "react";
 import { FormInput, FormSelectInput } from "@/common";
 
@@ -22,7 +23,7 @@ const BudgetPage: React.FC = () => {
   ];
 
 
-  // Fonction de soumission du formulaire
+ /* // Fonction de soumission du formulaire
   const handleSubmit = (value: any) => {
     console.log("Formulaire soumis avec la valeur:", value);
   };
@@ -30,7 +31,7 @@ const BudgetPage: React.FC = () => {
   // Fonction d'annulation du formulaire
   const handleCancel = () => {
     console.log("Formulaire annulé !");
-  };
+  };*/
 
   // Rendu du composant
   return (
@@ -39,6 +40,7 @@ const BudgetPage: React.FC = () => {
       <FormInput label="Description" type="text" />
       <FormSelectInput options={categories} />
       <FormInput label="Montant" type="number" />
+      <FormSelectInput options={revenusDepenses} />
     </div>
   );
 };
