@@ -20,11 +20,11 @@ const BudgetPage: React.FC = () => {
   // Rendu du composant
   return (
     <div className=' bg-gray-50 flex flex-col justify-center sm:p-5 m-20 w-1/2 mx-auto '>
-      <FormInput label="Date" type="date" />
-      <FormInput label="Description" type="text" />
+      <FormInput label="Date" type="date" options={[]} />
+      <FormInput label="Description" type="text" options={[]} />
       <FormInput label="" type="select" options={categories} />
-      <FormInput label="Montant" type="number" />
-    </div>
+      <FormInput label="Montant" type="number" options={[]} />
+    </div> 
   );
 };
 
