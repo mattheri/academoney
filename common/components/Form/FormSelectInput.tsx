@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import type { FC, SelectHTMLAttributes } from "react";
 
 import { forwardRef } from "react";
