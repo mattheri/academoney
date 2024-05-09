@@ -27,3 +27,5 @@ export const FormInput: FC<Props> = forwardRef<HTMLInputElement, Props>(
     );
   }
 );
+
+FormInput.displayName
