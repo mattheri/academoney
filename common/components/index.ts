@@ -1,5 +1,4 @@
 import { Fonts } from "./Fonts/Fonts";
+import { Form } from "./Form/Form";
 
-export * from "./Form";
-
-export { Fonts };
+export { Fonts, Form };
