@@ -48,4 +48,4 @@ export const FormSelectInput: FC<Props> = forwardRef<HTMLSelectElement, Props>(
   }
 );
 
-FormSelectInput.displayName = "SelectIput";
+FormSelectInput.displayName = "SelectInput";
