@@ -1,4 +1,4 @@
-import type { AxiosResponse, CreateAxiosDefaults } from "axios";
+import type { AxiosError, AxiosResponse, CreateAxiosDefaults } from "axios";
 
 export enum HttpMethod {
   GET = "GET",
@@ -25,3 +25,5 @@ export type HttpRequestInit<T extends HttpMethod> = HttpRequestInitMap[T];
 export type CancellableHttpResponse<T> = HttpResponse<T> & {
   cancel: () => void;
 };
+
+export type HttpError = AxiosError;
