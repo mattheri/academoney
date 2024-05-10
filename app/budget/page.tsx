@@ -1,27 +1,11 @@
 "use client"
 
 import { FormInput, FormSelectInput, Button, Form } from '@/common';
+import { categories, revenusDepenses } from '@/common/constants';
 
 // Définition du composant BudgetPage
 const BudgetPage: React.FC = () => {
-  // Définition des catégories pour le champ select catégorie
-  const categories = [
-    "Catégories",
-    "Habitation",
-    "Alimentation",
-    "Télécomunications",
-    "Éducation",
-    "Soins personnels",
-    "Épargne",
-    "Vêtements",
-    "Loisirs",
-    "Autres",
-  ];
-
-  const revenusDepenses = ['Revenu',
-                           'Dépense'
-  ];
-
+  
 
   // Fonction de soumission du formulaire
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
