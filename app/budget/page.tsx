@@ -1,6 +1,6 @@
 "use client"
 
-import { FormInput, FormSelectInput, FormButton, Form } from '@/common';
+import { FormInput, FormSelectInput, Button, Form } from '@/common';
 
 // Définition du composant BudgetPage
 const BudgetPage: React.FC = () => {
@@ -44,7 +44,7 @@ const BudgetPage: React.FC = () => {
           <FormSelectInput options={categories} />
           <FormInput label="Montant" type="number" />
           <FormSelectInput options={revenusDepenses} />
-          <FormButton type="submit"/>
+          <Button type="submit">Ajouter</Button>
         </form>
       </div>
     

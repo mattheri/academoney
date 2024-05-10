@@ -1,5 +1,5 @@
 import { FormSelectInput } from "./FormSelectInput";
 import { FormInput } from "./FormInput";
-import { FormButton } from "../Button/Button";
+import { Button } from "../Button/Button";
 
-export { FormInput, FormSelectInput, FormButton };
+export { FormInput, FormSelectInput, Button };

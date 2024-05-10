@@ -1,5 +1,5 @@
 
-//"use client";
+
 
 import { cx } from "@/utils/cx";
 import type { FC, ButtonHTMLAttributes } from "react";
@@ -13,12 +13,12 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> &
     } 
 ; 
 
-export const FormButton: FC<Props> = forwardRef<HTMLButtonElement, Props>( ({  className, type="button" }, ref)=> {
+export const Button: FC<Props> = forwardRef<HTMLButtonElement, Props>( ({ children, className, type="button" }, ref)=> {
     return (
         <button type={type} className={cx(ButtonStyle, className)}>
-            Ajouter  
+            {children}  
         </button>
     )
 });
 
-FormButton.displayName = "Button";
+Button.displayName = "Button";
