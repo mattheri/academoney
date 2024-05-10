@@ -17,7 +17,7 @@ const BudgetPage: React.FC = () => {
   // Rendu du composant
   return (
     
-      <div className=" bg-gray-50 flex flex-col justify-center sm:p-5 m-20 w-1/2 mx-auto ">
+      <div className=" bg-gray-500 flex flex-col justify-center sm:p-5 m-20 w-1/2 mx-auto">
         <Form onSubmit={handleSubmit}>
           <FormInput label="Date" type="date" />
           <FormInput label="Description" type="text" />

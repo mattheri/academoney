@@ -8,6 +8,10 @@ export const categories = [
     "Épargne",
     "Vêtements",
     "Loisirs",
+    "Salaire",
+    "Prestations",
+    "Remboursements",
+    "Bourse",
     "Autres",
   ];
   

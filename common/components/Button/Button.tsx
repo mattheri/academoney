@@ -13,7 +13,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> &
     } 
 ; 
 
-export const Button: FC<Props> = forwardRef<HTMLButtonElement, Props>( ({ children, className, type="button" }, ref)=> {
+export const Button: FC<Props> = forwardRef<HTMLButtonElement, Props>( ({ children, className, type="button" })=> {
     return (
         <button type={type} className={cx(ButtonStyle, className)}>
             {children}  
