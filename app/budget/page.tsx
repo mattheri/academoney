@@ -1,6 +1,6 @@
+"use client"
 
-import React from "react";
-import { FormInput, FormSelectInput, FormButton } from "@/common";
+import { FormInput, FormSelectInput, FormButton, Form } from '@/common';
 
 // Définition du composant BudgetPage
 const BudgetPage: React.FC = () => {
@@ -23,12 +23,13 @@ const BudgetPage: React.FC = () => {
   ];
 
 
- /* // Fonction de soumission du formulaire
-  const handleSubmit = (value: any) => {
-    console.log("Formulaire soumis avec la valeur:", value);
+  // Fonction de soumission du formulaire
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("Formulaire soumis");
   };
 
-  // Fonction d'annulation du formulaire
+ /* // Fonction d'annulation du formulaire
   const handleCancel = () => {
     console.log("Formulaire annulé !");
   };*/
@@ -37,12 +38,14 @@ const BudgetPage: React.FC = () => {
   return (
     
       <div className=" bg-gray-50 flex flex-col justify-center sm:p-5 m-20 w-1/2 mx-auto ">
-        <FormInput label="Date" type="date" />
-        <FormInput label="Description" type="text" />
-        <FormSelectInput options={categories} />
-        <FormInput label="Montant" type="number" />
-        <FormSelectInput options={revenusDepenses} />
-        <FormButton />
+        <form onSubmit={handleSubmit}>
+          <FormInput label="Date" type="date" />
+          <FormInput label="Description" type="text" />
+          <FormSelectInput options={categories} />
+          <FormInput label="Montant" type="number" />
+          <FormSelectInput options={revenusDepenses} />
+          <FormButton type="submit"/>
+        </form>
       </div>
     
     
