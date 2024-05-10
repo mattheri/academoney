@@ -1,9 +1,10 @@
 import "@/styles/global.css";
+import type { LayoutProps } from "@/utils/types";
 
 import { Crimson_Pro, Mulish } from "next/font/google";
 
 import { Fonts } from "@/common/components/Fonts/Fonts";
-import type { LayoutProps } from "@/utils/types";
+import { AuthProvider } from "@/auth/components/AuthProvider";
 
 const mulish = Mulish({
   subsets: ["latin"],
@@ -24,7 +25,9 @@ export default function RootLayout({ children }: LayoutProps) {
     <>
       <Fonts fonts={[mulish.style, crimsonPro.style]} />
       <html lang="en">
-        <body>{children}</body>
+        <body>
+          <AuthProvider>{children}</AuthProvider>
+        </body>
       </html>
     </>
   );
