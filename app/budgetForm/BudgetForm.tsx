@@ -1,5 +1,5 @@
 import { FormInput, FormSelectInput, Button, Form } from '@/common';
-import { categories, revenusDepenses } from '@/common/constants';
+import { categories, revenusDepenses } from './constants';
 
 // Définition du composant BudgetPage
 export const BudgetForm: React.FC = () => {
