@@ -27,6 +27,8 @@ export const CalculatorButton: FC<Props> = forwardRef<HTMLButtonElement, Props>(
     const onClick = () => addToken(action);
     const normalizedCurrentToken =
       currentToken !== null && typeof action === "number"
+
+      
         ? Number(currentToken)
         : currentToken;
 
