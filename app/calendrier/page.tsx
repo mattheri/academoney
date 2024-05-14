@@ -1,24 +1,24 @@
 "use client";
-//npm install date-fns
-import React, { ChangeEvent, useRef, useState } from 'react';
+
+import React, { ChangeEvent, useState } from 'react';
 import { format, addMonths, subMonths, addDays, startOfWeek, endOfWeek, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth } from 'date-fns';
 import { fr } from 'date-fns/locale'; 
 
-interface Event {
+type CalendarEvent = {
   date: Date;
   name: string;
 }
 
-interface CalendarProps {
-  events: Event[];
+type Props = {
+  events: CalendarEvent[];
 }
 
-const Calendar: React.FC<CalendarProps> = ({ events }) => {
+const Calendar: React.FC<Props> = ({ events }) => {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null); 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
   const [newEventName, setNewEventName] = useState<string>('');
-  const [allEvents, setAllEvents] = useState<Event[]>([]);
+  const [allEvents, setAllEvents] = useState<CalendarEvent[]>([]);
 
   const firstDayOfMonth = startOfMonth(currentMonth);
   const lastDayOfMonth = endOfMonth(currentMonth);
@@ -48,7 +48,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
   }
 
   const handleAddEvent = () => {
-    const newEvent: Event = {
+    const newEvent: CalendarEvent = {
       date: selectedDate!,
       name: newEventName
     }
@@ -58,17 +58,20 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
   }
 
   return (
-    <div className="mx-auto max-w-xl border p-3 bg-[#092d74] rounded-lg mt-4 text-white">
+    // Main container
+    <div className="mx-auto border p-3 bg-[#e7e7e4] rounded-lg text-black">
+      
+      {/* Component Calendrier */}
       <div className="flex justify-between items-center mb-4">
-        <button onClick={handlePrevMonth}>&lt;</button>
-        <h1>{format(currentMonth, 'MMMM yyyy', { locale: fr })}</h1> {}
-        <button onClick={handleNextMonth}>&gt;</button>
+        <button onClick={handlePrevMonth} className='font-bold'>&lt;</button>
+        <h1 className='uppercase font-bold'>{format(currentMonth, 'MMMM yyyy', { locale: fr })}</h1> {}
+        <button onClick={handleNextMonth} className='font-bold'>&gt;</button>
       </div>
-      <table className="border border-black text-center w-full rounded-lg">
+      <table className="border table-fixed border-[#e7e7e4] text-center w-full rounded-lg">
         <thead>
-          <tr>
+          <tr className='bg-[#bf0c1d] text-white'>
             {['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'].map((day) => (
-              <th key={day} className="border border-white p-2 rounded-md">{day}</th>
+              <th key={day} className="border border-white p-2">{day}</th>
             ))}
           </tr>
         </thead>
@@ -78,25 +81,30 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
               {Array(7).fill(null).map((_, dayIndex) => {
                 const day = addDays(firstDayOfWeek, weekIndex * 7 + dayIndex);
                 return (
+
+                  // Component Cellule Calendrier
                   <td
                     key={dayIndex}
                     onClick={() => handleDateClick(day)}
-                    className={`border border-white p-2 ${isSameMonth(day, currentMonth) ? '' : 'other-month'}`}
+                    className={`border border-white bg-[#092d74] h-28 align-top ${isSameMonth(day, currentMonth) ? 'text-white' : 'text-[#ef3832]'}`}
                   >
-                    {day && format(day, 'd')}
+                    <b>{day && format(day, 'd')}</b>
                     <div id={day && format(day, 'yyyy-MM-dd')}>
-                        {allEvents.map((event, eventIndex) => (
-                            <p key={eventIndex}>{event.date.toString() === day.toString() ? event.name : ''}</p>
+                        {allEvents.map((e, eventIndex) => (
+                            e.date.toString() === day.toString() ? <div className='border border-bg[#e7e7e4] bg-black' key={eventIndex}>{e.name}</div> : ''
                           ))}
                       </div>
                   </td>
+
                 );
               })}
             </tr>
           ))}
         </tbody>
       </table>
-      <div>
+      
+      {/* Component 'Liste de transactions' */}
+      {<div>
         <h2>Évènements:</h2>
         <ul>
           {allEvents?.length > 0 ? (
@@ -109,21 +117,10 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
             <li>Aucun évènements en cours</li>
           )}
         </ul>
-      </div>
-      {isModalOpen && (
-        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-opacity-50">
-          <div className="bg-[#092d74] p-4 rounded-md border-2 border-white">
-            <h2>Date sélectionnée: {selectedDate && format(selectedDate, 'dd MMMM yyyy', { locale: fr })}</h2>
-            <h3>Ajouter un événement</h3>
-            <form action="" className='flex flex-col'>
-                <label htmlFor="eventName">Nom:</label>
-                <input id='eventName' name='eventName' autoFocus={true} className='text-black' type="text" onChange={(e) => handleEventInput(e)} />
-            </form>
-            <button className='bg-[#bf0c1d] rounded-md p-2' onClick={() => setIsModalOpen(false)}>Annuler</button>
-            <button className='bg-[#ef3832] rounded-md p-2 ml-2 mt-2' onClick={() => handleAddEvent()}>Ajouter</button>
-          </div>
-        </div>
-      )}
+      </div>}
+
+
+
     </div>
   );
 };
