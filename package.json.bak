@@ -6,10 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "auth-secret": "npx auth secret"
   },
   "dependencies": {
     "axios": "^1.6.8",
+<<<<<<< HEAD
+    "cva": "npm:class-variance-authority@^0.7.0",
+    "mathjs": "^12.4.2",
+=======
+    "date-fns": "^3.6.0",
+>>>>>>> 43f82f149e08e9794e9e2b9f011da5abd20fe53e
     "next": "14.2.2",
     "next-auth": "^5.0.0-beta.17",
     "react": "^18",
@@ -26,7 +33,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.3",
     "typescript": "^5"
   }
 }
