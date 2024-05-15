@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Logo from '../components/logo';
+import Logo from './Logo';
 import Link from 'next/link';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 

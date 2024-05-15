@@ -1,7 +1,6 @@
-// components/Logo.tsx
 import Image from 'next/image';
 
-interface LogoProps {
+type LogoProps = {
   width?: number;
   height?: number;
 }

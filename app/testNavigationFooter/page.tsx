@@ -1,9 +1,11 @@
 import { FC } from 'react';
-import Footer from '../components/footer'; 
+import Navbar from '../../common/components/Navbar'; 
+import Footer from '../../common/components/Footer';
 
 const TestFooter: FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
+      <Navbar />
       <main className="flex-grow">
         {/* page */}
       </main>

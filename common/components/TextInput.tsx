@@ -1,8 +1,6 @@
-// components/TextInput.tsx
-"use client";
 import { ChangeEvent } from "react";
 
-interface InputProps {
+type InputProps = {
   id: string;
   type?: string;
   autoComplete?: string;

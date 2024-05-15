@@ -1,8 +1,7 @@
-// components/InscriptionModal.tsx
 import { FC, ReactNode } from 'react';
-import InscriptionForm from './inscriptionForm';
+import InscriptionForm from './InscriptionForm';
 
-interface InscriptionModalProps {
+type InscriptionModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
