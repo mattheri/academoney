@@ -1,68 +1,31 @@
-// components/LoginForm.tsx
-"use client"; // Utilisation du client-side rendering pour ce composant
-import { useState, ChangeEvent, FormEvent } from "react";
 import Image from "next/image";
-import Input from "./input"; 
+import Input from "./input";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+// Définir le schéma de validation avec Yup
+const schema = yup.object().shape({
+  email: yup.string().required("Veuillez entrer votre courriel.").email("Veuillez entrer un courriel valide."),
+  password: yup.string().required("Veuillez entrer votre mot de passe."),
+});
+
+// Définir le type pour les données du formulaire
+type FormData = {
+  email: string;
+  password: string;
+};
 
 const LoginForm = () => {
-  // Définition des états pour le courriel et le mot de passe
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    resolver: yupResolver(schema)
+  });
+
+  // Gérer la soumission du formulaire
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data);
   };
 
-  // Extraction des fonctions de mise à jour dans le composant pour éviter de les recréer à chaque re-render
-  // const onEmailUpdate = (event: ChangeEvent<HTMLInputElement>) => setEmail(event.target.value);
-  // const onPasswordUpdate = (event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value);
-
-  // Fonction pour gérer la soumission du formulaire
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (email.trim() === "") {
-      setEmailError("Veuillez entrer votre courriel.");
-    } else {
-      setEmailError("");
-    }
-
-    if (password.trim() === "") {
-      setPasswordError("Veuillez entrer votre mot de passe.");
-    } else {
-      setPasswordError("");
-    }
-
-    console.log("Connexion avec:", email, password);
-  };
-
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setEmail(value);
-  
-    if (value.trim() === "") {
-      setEmailError("Veuillez entrer votre courriel.");
-    } else if (value.length < 2) {
-      setEmailError("Le courriel doit contenir au moins 2 caractères.");
-    } else if (!validateEmail(value)) {
-      setEmailError("Veuillez entrer un courriel valide.");
-    } else {
-      setEmailError("");
-    }
-  };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-  setPassword(e.target.value);
-  
-  if (e.target.value.trim() === "") {
-    setPasswordError("Veuillez entrer votre mot de passe.");
-  } else {
-    setPasswordError("");
-  }
-};
 
   return (
     <div className="min-h-screen bg-gray-50 py-6 flex flex-col justify-center sm:py-12">
@@ -75,26 +38,26 @@ const LoginForm = () => {
             </div>
             <div className="divide-y divide-gray-200">
               <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="rounded-md shadow-sm">
                     <Input
                       id="email-address"
                       type="email"
                       autoComplete="email"
                       placeholder="Courriel"
-                      value={email}
-                      onChange={handleEmailChange}
+                      {...register("email")}
+                      value=""
                     />
-                    {emailError && <span className="text-red-500 text-sm">{emailError}</span>}
+                    {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
                     <Input
                       id="password"
                       type="password"
                       autoComplete="current-password"
                       placeholder="Mot de passe"
-                      value={password}
-                      onChange={handlePasswordChange}
+                      {...register("password")}
+                      value=""
                     />
-                    {passwordError && <span className="text-red-500 text-sm">{passwordError}</span>}
+                    {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
                   </div>
 
                   <div className="pt-6">
