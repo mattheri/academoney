@@ -2,10 +2,10 @@
 "use client";
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
-import TextInput from "../../../common/components/TextInput";
+import TextInput from "../../common/components/TextInput";
 import Link from 'next/link';
-import Logo from '../../../common/components/Logo';
-import PageContainer from '../../../common/components/PageContainer';
+import Logo from '../../common/components/Logo';
+import PageContainer from '../../common/components/PageContainer';
 import InscriptionModal from './InscriptionModal';
 
 const LoginForm = () => {

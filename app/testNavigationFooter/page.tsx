@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import Navbar from '../../common/components/Navbar'; 
-import Footer from '../../common/components/Footer';
+import Navbar from '../../common/components/Layout/Navbar';
+import Footer from '../../common/components/Layout/Footer';
+
 
 const TestFooter: FC = () => {
   return (
@@ -11,6 +12,7 @@ const TestFooter: FC = () => {
       </main>
       <Footer />
     </div>
+    
   );
 };
 

@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { FormInput } from '../../../common/components/Form/FormInput';
+import { FormInput } from '../../common/components/Form/FormInput';
 
 const InscriptionForm = () => {
   const handleSubmit = (e: FormEvent) => {
