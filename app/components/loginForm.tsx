@@ -4,13 +4,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-// Définir le schéma de validation avec Yup
 const schema = yup.object().shape({
   email: yup.string().required("Veuillez entrer votre courriel.").email("Veuillez entrer un courriel valide."),
   password: yup.string().required("Veuillez entrer votre mot de passe."),
 });
 
-// Définir le type pour les données du formulaire
 type FormData = {
   email: string;
   password: string;
@@ -21,7 +19,7 @@ const LoginForm = () => {
     resolver: yupResolver(schema)
   });
 
-  // Gérer la soumission du formulaire
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
   };
