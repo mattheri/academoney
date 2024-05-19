@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { routes } from "./routes";
 import type { Session } from "next-auth";
+import appConstants from "./contants";
 
 export default AuthService.instance.auth((req: NextRequest) => {
   const session = "auth" in req && (req.auth as Session);
@@ -11,7 +12,13 @@ export default AuthService.instance.auth((req: NextRequest) => {
     return NextResponse.redirect(new URL(routes.auth.LOGIN, req.url));
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+  response.cookies.set(
+    appConstants.USER_ID_COOKIE,
+    JSON.stringify(session.user.id)
+  );
+
+  return response;
 });
 
 export const config = {
