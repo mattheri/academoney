@@ -3,9 +3,9 @@ import type { FC, ButtonHTMLAttributes } from "react";
 import { forwardRef } from "react";
 import { ButtonStyle } from "./Button.style";
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  className?: string;
-};
+type Props = ButtonHTMLAttributes<HTMLButtonElement>
+  
+
 
 export const Button: FC<Props> = forwardRef<HTMLButtonElement, Props>(
   ({ children, className, type = "button" }, ref) => {
