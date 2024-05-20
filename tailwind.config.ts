@@ -7,6 +7,7 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./calculator/**/*.{js,ts,jsx,tsx,mdx}",
+    "./calendar/**/*.{js,ts,jsx,tsx,mdx}",
     "./auth/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
