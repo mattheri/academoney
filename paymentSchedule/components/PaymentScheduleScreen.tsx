@@ -40,14 +40,14 @@ export const PaymentScheduleScreen = () =>{
     const totalSolde = monthSummary();
 
     return(
-        <div className="w-full">
-            <div className="flex">
+        <div className="w-full bg-primary-blue text-white rounded-xl">
+            <div className="flex p-4">
                 <PaymentScheduleButton onClick={decreaseNumberMonth}> &lt; </PaymentScheduleButton>
                 <p className="ml-6 mr-6">{monthName}</p>
                 <PaymentScheduleButton onClick={increaseNumberMonth}> &gt; </PaymentScheduleButton>
             </div>
             <TableComponent payments={filteredPayments}/>
-            <div className="mt-4">
+            <div className="p-4">
                 <p>Solde du mois : {totalSolde}$</p>
             </div>
         </div>

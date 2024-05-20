@@ -8,7 +8,7 @@ type Props = {
 const TableComponent: React.FC<Props> = ({ payments }) => {
   return (
     <table className="w-full border-collapse">
-      <thead className="bg-primary-blue text-white text-center rounded-bl-lg">
+      <thead className="bg-primary-blue text-white text-center">
         <tr>
           <th className="p-1 border box-border border-light-gray">Date</th>
           <th className="p-1 border box-border border-light-gray">Description</th>
