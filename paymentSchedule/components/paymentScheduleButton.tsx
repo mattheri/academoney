@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 type Props = PropsWithRef<
     PropsWithChildren<{
         className?: string;
-        onClick: () => void; // Fonction qui augmente le score de 1
+        onClick: () => void; // Fonction qui augmente ou diminue l'id du mois de 1
     }>
 >;
 

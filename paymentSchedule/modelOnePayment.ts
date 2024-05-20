@@ -1,4 +1,4 @@
-export interface modelPayment {
+export interface modelOnePayment {
     id: string,
     date: string,
     description: string,

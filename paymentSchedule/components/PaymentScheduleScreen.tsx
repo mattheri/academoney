@@ -7,23 +7,49 @@ import { Payment } from "../mockPaymentSchedule";
 import { useState } from "react";
 
 export const PaymentScheduleScreen = () =>{
-    const [score, setScore] = useState(0);
+    const [numberMonth, setNumberMonth] = useState(0);
 
-    const increaseScore = () =>{
-        setScore(score + 1);
+    const maxMonths = Payment.length - 1;
+
+    const numberMonthLimit = (numberMonth: number)=>{
+        if(numberMonth < 0){
+            return 0;
+        }else if (numberMonth > maxMonths) {
+            return maxMonths;
+        }
+        return numberMonth;
+    };
+
+    const increaseNumberMonth = () =>{
+        setNumberMonth(prevNumberMonth => numberMonthLimit(prevNumberMonth + 1));
     }
 
-    const decreaseScore = () =>{
-        setScore(score - 1);
+    const decreaseNumberMonth = () =>{
+        setNumberMonth(prevNumberMonth => numberMonthLimit(prevNumberMonth - 1));
     }
+
+    const filteredPayments = Payment.filter(payment =>parseInt(payment.id) === numberMonth);
+    const monthName = Payment.find(payment =>parseInt (payment.id) === numberMonth)?.name;
+
+    const monthSummary = () => {
+        return filteredPayments.reduce((sum, payment) => {
+          return sum + payment.onePayment.reduce((innerSum, onePay) => innerSum + onePay.solde, 0);
+        }, 0);
+      };
+
+    const totalSolde = monthSummary();
 
     return(
-        <div className="w-full object-center p-4">
-            <h1 className="text-xl p-6">Allo monde</h1>
-            <p>Score : {score}</p>
-            <PaymentScheduleButton onClick={increaseScore}>+</PaymentScheduleButton>
-            <PaymentScheduleButton onClick={decreaseScore}>-</PaymentScheduleButton>
-            <TableComponent payments={Payment}/>
+        <div className="w-full">
+            <div className="flex">
+                <PaymentScheduleButton onClick={decreaseNumberMonth}> &lt; </PaymentScheduleButton>
+                <p className="ml-6 mr-6">{monthName}</p>
+                <PaymentScheduleButton onClick={increaseNumberMonth}> &gt; </PaymentScheduleButton>
+            </div>
+            <TableComponent payments={filteredPayments}/>
+            <div className="mt-4">
+                <p>Solde du mois : {totalSolde}$</p>
+            </div>
         </div>
     );
 };
