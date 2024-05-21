@@ -48,14 +48,19 @@ const VersementsHypothecairesPage = () => {
               <label htmlFor="cout" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Coût des études
               </label>
-              <input
-                type="text"
-                id="cout"
-                value={cout}
-                onChange={(e) => setCout(e.target.value)}
-                required 
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              />
+                  <div className="relative">
+                          <input
+                        type="text"
+                        id="cout"
+                        value={cout}
+                        onChange={(e) => setCout(e.target.value)}
+                        required 
+                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      />
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                          <span className="text-gray-500">$</span>
+                        </div>
+                  </div>
             </div>
           </div>
 
@@ -64,14 +69,19 @@ const VersementsHypothecairesPage = () => {
               <label htmlFor="MiseFond" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Mise de fond
               </label>
-              <input
-                type="text"
-                id="MiseFond"
-                value={MiseFond}
-                onChange={(e) => setMiseFond(e.target.value)}
-                required 
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              />
+                  <div className="relative">
+                          <input
+                        type="text"
+                        id="MiseFond"
+                        value={MiseFond}
+                        onChange={(e) => setMiseFond(e.target.value)}
+                        required 
+                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      />
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                          <span className="text-gray-500">$</span>
+                        </div>
+                  </div>
             </div>
           </div>
 
@@ -80,28 +90,38 @@ const VersementsHypothecairesPage = () => {
               <label htmlFor="Montant" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Montant de l'emprunt
               </label>
-              <input
-                type="text"
-                id="Montant"
-                value={Montant}
-                onChange={(e) => setMontant(e.target.value)}
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              />
+                  <div className="relative">
+                        <input
+                          type="text"
+                          id="Montant"
+                          value={Montant}
+                          onChange={(e) => setMontant(e.target.value)}
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        />
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                          <span className="text-gray-500">$</span>
+                        </div>
+                  </div>
             </div>
           </div>
 
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label htmlFor="Taux" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Taux d'intérêt
+                Taux d'intérêt (%)
               </label>
-              <input
-                type="text"
-                id="Taux"
-                value={Taux}
-                onChange={(e) => setTaux(e.target.value)}
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              />
+                  <div className="relative">
+                        <input
+                          type="text"
+                          id="Taux"
+                          value={Taux}
+                          onChange={(e) => setTaux(e.target.value)}
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 pr-10 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        />
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                          <span className="text-gray-500">%</span>
+                        </div>
+                  </div>
             </div>
 
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
