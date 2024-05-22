@@ -2,6 +2,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import Logo from '../Logo';
 import { FaUserCircle } from 'react-icons/fa';
+import Dropdown from '../../../app/client/components/Navbar/Dropdown'; 
 
 const Navbar: FC = () => {
   return (
@@ -14,7 +15,7 @@ const Navbar: FC = () => {
         <div className="flex-1 md:flex md:w-1/2 justify-around">
           <Link href="#" className="p-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-gray-300 hover:border-2 hover:border-white rounded">Calendrier</Link>
           <Link href="#" className="p-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-gray-300 hover:border-2 hover:border-white rounded">Budget</Link>
-          <Link href="#" className="p-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-gray-300 hover:border-2 hover:border-white rounded">Outils financiers</Link>
+          <Dropdown /> 
           <Link href="#" className="p-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-gray-300 hover:border-2 hover:border-white rounded">Contact</Link>
           <Link href="#" className="p-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:text-gray-300 hover:border-2 hover:border-white rounded">Mon profil</Link>
         </div>
