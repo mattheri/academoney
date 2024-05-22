@@ -4,11 +4,12 @@ import Input from "./input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { Form } from "@/common";
 
 
 const schema = yup.object().shape({
   email: yup.string().email("Veuillez entrer un courriel valide.").required("Veuillez entrer votre courriel."),
-  password: yup.string().required("Veuillez entrer votre mot de passe."),
+  password: yup.string().matches(/^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[a-zA-Z]).{8,}$/gm).required(),
 });
 
 type LoginFormData = {
@@ -39,7 +40,6 @@ const LoginForm = () => {
                         id="email-address"
                         type="email"
                         required
-                        name="email"
                         autoComplete="email"
                         placeholder="Courriel"
                         {...register("email")}
@@ -49,7 +49,6 @@ const LoginForm = () => {
                         id="password"
                         type="password"
                         required
-                        name="password"
                         autoComplete="current-password"
                         placeholder="Mot de passe"
                         {...register("password")}
