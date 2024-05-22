@@ -1,6 +1,6 @@
 
 
-import { BudgetForm } from '../budgetForm/BudgetForm';
+import { BudgetForm } from '../../budgetForm/BudgetForm';
 
 // Définition du composant BudgetPage
 const BudgetPage: React.FC = () => {
