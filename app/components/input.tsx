@@ -1,12 +1,9 @@
-interface InputProps {
-  id: string;
-  type: string;
-  autoComplete: string;
-  placeholder: string;
-}
+import { InputHTMLAttributes } from 'react';
+
+type Props = InputHTMLAttributes<HTMLInputElement>;
 
 // Création du composant Input pour réutiliser les styles
-const Input = ({ id, type, autoComplete, placeholder }: InputProps) => {
+const Input = ({ id, type, autoComplete, placeholder }: Props) => {
   return (
     <input
       id={id}

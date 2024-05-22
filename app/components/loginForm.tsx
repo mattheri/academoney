@@ -1,29 +1,25 @@
+import { AuthService, signInWithCredentials } from "@/auth";
 import Image from "next/image";
 import Input from "./input";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+
 const schema = yup.object().shape({
-  email: yup.string().required("Veuillez entrer votre courriel.").email("Veuillez entrer un courriel valide."),
+  email: yup.string().email("Veuillez entrer un courriel valide.").required("Veuillez entrer votre courriel."),
   password: yup.string().required("Veuillez entrer votre mot de passe."),
 });
 
-type FormData = {
+type LoginFormData = {
   email: string;
   password: string;
 };
 
 const LoginForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { register, formState: { errors } } = useForm<LoginFormData>({
     resolver: yupResolver(schema)
   });
-
-
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
-  };
-
 
   return (
     <div className="min-h-screen bg-gray-50 py-6 flex flex-col justify-center sm:py-12">
@@ -36,37 +32,41 @@ const LoginForm = () => {
             </div>
             <div className="divide-y divide-gray-200">
               <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="rounded-md shadow-sm">
-                    <Input
-                      id="email-address"
-                      type="email"
-                      autoComplete="email"
-                      placeholder="Courriel"
-                      {...register("email")}
-                      value=""
-                    />
-                    {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
-                    <Input
-                      id="password"
-                      type="password"
-                      autoComplete="current-password"
-                      placeholder="Mot de passe"
-                      {...register("password")}
-                      value=""
-                    />
-                    {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
-                  </div>
+                {AuthService.instance.getProvidersMap().map((provider) => (
+                  <Form key={provider.id} action={signInWithCredentials}>
+                    <div className="rounded-md shadow-sm">
+                      <Input
+                        id="email-address"
+                        type="email"
+                        required
+                        name="email"
+                        autoComplete="email"
+                        placeholder="Courriel"
+                        {...register("email")}
+                      />
+                      {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
+                      <Input
+                        id="password"
+                        type="password"
+                        required
+                        name="password"
+                        autoComplete="current-password"
+                        placeholder="Mot de passe"
+                        {...register("password")}
+                      />
+                      {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
+                    </div>
 
-                  <div className="pt-6">
-                    <button
-                      type="submit"
-                      className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                    >
-                      Connexion
-                    </button>
-                  </div>
-                </form>
+                    <div className="pt-6">
+                      <button
+                        type="submit"
+                        className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      >
+                        Connexion
+                      </button>
+                    </div>
+                  </Form>
+                ))}
                 <div className="pt-6 text-center">
                   <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
                     Inscription
