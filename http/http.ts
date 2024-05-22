@@ -13,13 +13,16 @@ export type HttpResponse<T> = Pick<
   "data" | "status" | "statusText" | "headers"
 >;
 export type HttpInit = CreateAxiosDefaults;
+export type HttpRequestInitObject = Omit<RequestInit, "body"> & {
+  body?: unknown;
+};
 
 export type HttpRequestInitMap = {
-  [HttpMethod.GET]: Omit<RequestInit, "method" | "body">;
-  [HttpMethod.POST]: Omit<RequestInit, "method">;
-  [HttpMethod.PUT]: Omit<RequestInit, "method">;
-  [HttpMethod.PATCH]: Omit<RequestInit, "method">;
-  [HttpMethod.DELETE]: Omit<RequestInit, "method">;
+  [HttpMethod.GET]: Omit<HttpRequestInitObject, "method" | "body">;
+  [HttpMethod.POST]: Omit<HttpRequestInitObject, "method">;
+  [HttpMethod.PUT]: Omit<HttpRequestInitObject, "method">;
+  [HttpMethod.PATCH]: Omit<HttpRequestInitObject, "method">;
+  [HttpMethod.DELETE]: Omit<HttpRequestInitObject, "method">;
 };
 export type HttpRequestInit<T extends HttpMethod> = HttpRequestInitMap[T];
 export type CancellableHttpResponse<T> = HttpResponse<T> & {
