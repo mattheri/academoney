@@ -13,7 +13,7 @@ export class AuthHttpService {
 
   async createUser(user: User) {
     const { data } = await this.http.POST<User>("/users", {
-      body: JSON.stringify(user),
+      body: user,
     });
 
     return data;
