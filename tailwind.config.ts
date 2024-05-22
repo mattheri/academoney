@@ -9,7 +9,7 @@ const config: Config = {
     "./calculator/**/*.{js,ts,jsx,tsx,mdx}",
     "./auth/**/*.{js,ts,jsx,tsx,mdx}",
     "./common/**/*.{js,ts,jsx,tsx,mdx}",
-    
+    "./calendar/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {

@@ -1,3 +1,9 @@
+import { SignOutButton } from "@/auth";
+
 export default function Home() {
-  return <main></main>;
+  return (
+    <main>
+      <SignOutButton />
+    </main>
+  );
 }
