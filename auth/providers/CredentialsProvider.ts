@@ -2,8 +2,6 @@ import { User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 import { HttpError } from "@/http";
-import { routes } from "@/routes";
-import { redirect } from "@/utils";
 
 import {
   AuthAction,
@@ -16,6 +14,8 @@ import {
 import { AuthHttpService } from "../services/AuthHttpService";
 import { AuthService } from "../services/AuthService";
 import { Validator } from "../services/Validator";
+import { redirect } from "@/utils";
+import { routes } from "@/routes";
 
 export class CredentialsProvider implements AuthProvider {
   constructor(
@@ -113,15 +113,14 @@ export class CredentialsProvider implements AuthProvider {
     { email, password, confirmPassword, redirectTo, ...rest }: RegisterArgs,
     id: string
   ) {
-    let isError = false;
-
     try {
       await this.auth.signIn(id, { email, password, ...rest });
     } catch (e) {
-      console.error(e);
-      isError = true;
-    } finally {
-      if (!isError) redirect(redirectTo);
+      const error = e as Error;
+      if (error.message === "NEXT_REDIRECT") {
+        throw error;
+      }
+      console.error(error);
     }
   }
 
@@ -129,8 +128,6 @@ export class CredentialsProvider implements AuthProvider {
     { email, password, redirectTo, ...rest }: SignInArgs,
     id: string
   ) {
-    let isError = false;
-
     try {
       await this.auth.signIn(id, {
         email,
@@ -139,22 +136,27 @@ export class CredentialsProvider implements AuthProvider {
         redirect: false,
       });
     } catch (e) {
-      console.error(e);
-      isError = true;
+      const error = e as Error;
+      if (error.message === "NEXT_REDIRECT") {
+        throw error;
+      }
+      console.error(error);
     } finally {
-      if (!isError) redirect(redirectTo);
+      redirect(redirectTo);
     }
   }
 
   async signOut(redirectTo?: string) {
-    let isError = false;
-
     try {
       await this.auth.signOut({ redirect: false });
     } catch (e) {
-      console.error(e);
+      const error = e as Error;
+      if (error.message === "NEXT_REDIRECT") {
+        throw error;
+      }
+      console.error(error);
     } finally {
-      if (!isError) redirect(redirectTo ?? routes.auth.LOGIN);
+      redirect(redirectTo || routes.auth.LOGIN);
     }
   }
 }

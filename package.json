@@ -6,13 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "auth-secret": "npx auth secret"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.4.0",
     "axios": "^1.6.8",
-    "cva": "npm:class-variance-authority@^0.7.0",
-    "mathjs": "^12.4.2",
+    "date-fns": "^3.6.0",
     "next": "14.2.2",
     "next-auth": "^5.0.0-beta.17",
     "react": "^18",

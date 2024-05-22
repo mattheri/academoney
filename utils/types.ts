@@ -25,6 +25,8 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       API_URL: string;
+      PASSTHROUGH_SECRET: string;
+      AUTH_SECRET: string;
     }
   }
 }
