@@ -6,21 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "auth-secret": "npx auth secret"
   },
   "dependencies": {
-    "@auth0/nextjs-auth0": "^3.5.0",
     "@hookform/resolvers": "^3.4.2",
-    "auth": "^1.0.2",
-    "cva": "npm:class-variance-authority@^0.7.0",
-    "mathjs": "^12.4.2",
+    "react-hook-form": "^7.51.5",
+    "date-fns": "^3.6.0",
     "next": "14.2.2",
-    "next-auth": "^4.24.7",
+    "next-auth": "^5.0.0-beta.17",
     "react": "^18",
     "react-dom": "^18",
-    "react-hook-form": "^7.51.5",
     "tailwind-merge": "^2.3.0",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "cva": "npm:class-variance-authority@^0.7.0",
+    "mathjs": "^12.4.2"
   },
   "devDependencies": {
     "@types/node": "^20",
