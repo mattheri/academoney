@@ -7,11 +7,11 @@ export class BudgetService {
     private readonly endpoint: "/users/{userId}/transactions"
   ) {}
 
-  /*async getUser(id: number) {
-    const { data } = await this.http.GET<Profile>(`${this.endpoint}/${id}`);
+  async getUser(id: number) {
+    const { data } = await this.http.GET<BudgetEntry>(`${this.endpoint}/${id}`);
 
     return data;
-  }*/
+  }
 
   async addBudgetEntry(
     id: number,

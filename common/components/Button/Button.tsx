@@ -10,7 +10,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement>
 export const Button: FC<Props> = forwardRef<HTMLButtonElement, Props>(
   ({ children, className, type = "button" }, ref) => {
     return (
-      <button type={type} className={cx(ButtonStyle, className)}>
+      <button type={type} className={cx(ButtonStyle(), className)}>
         {children}
       </button>
     );
