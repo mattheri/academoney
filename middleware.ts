@@ -10,15 +10,15 @@ import { routes } from "./routes";
 export default AuthService.instance.auth((req: NextRequest) => {
   const session = "auth" in req && (req.auth as Session);
 
-  if (!session) {
-    return NextResponse.redirect(new URL(routes.auth.LOGIN, req.url));
-  }
+  // if (!session) {
+  //   return NextResponse.redirect(new URL(routes.auth.LOGIN, req.url));
+  // }
 
   const response = NextResponse.next();
-  response.cookies.set(
-    appConstants.USER_ID_COOKIE,
-    JSON.stringify(session.user.id)
-  );
+  // response.cookies.set(
+  //   appConstants.USER_ID_COOKIE,
+  //   JSON.stringify(session.user.id)
+  // );
 
   return response;
 });

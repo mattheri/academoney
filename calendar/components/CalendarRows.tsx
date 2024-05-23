@@ -1,12 +1,12 @@
 import type { FC } from "react";
 import { getDaysInMonth, startOfToday, addDays, startOfWeek, startOfMonth } from 'date-fns';
-import CalendarCell from "./CalendarCell";
+import { CalendarCell } from "./CalendarCell";
 
 type Props = {
 
 }
 
-const CalendarRows: FC<Props> = ({}) => {
+export const CalendarRows: FC<Props> = ({}) => {
     return(
         <tbody>
             {Array(Math.ceil(getDaysInMonth(startOfToday()) / 7)).fill(null).map((_, weekIndex) => (
@@ -25,5 +25,3 @@ const CalendarRows: FC<Props> = ({}) => {
         </tbody>
     );
 };
-
-export default CalendarRows;

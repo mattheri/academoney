@@ -4,7 +4,7 @@ type Props = {
 
 }
 
-const CalendarTransactionsList: FC<Props> = ({}) => {
+export const CalendarTransactionsList: FC<Props> = ({}) => {
 
     return(
         <div>
@@ -23,5 +23,3 @@ const CalendarTransactionsList: FC<Props> = ({}) => {
         </div>
     );
 };
-
-export default CalendarTransactionsList;

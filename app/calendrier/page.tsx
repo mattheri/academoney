@@ -1,12 +1,12 @@
 "use client";
 import React, { FC } from 'react';
-import CalendarTool from '../../calendar/components/Calendar';
+import { Calendar } from '../../calendar/components/Calendar';
 
-const Calendar: FC = ({ }) => {
+const Calendrier: FC = ({ }) => {
   return (
-      <CalendarTool>
-      </CalendarTool>
+      <Calendar>
+      </Calendar>
   );
 };
 
-export default Calendar;
+export default Calendrier;

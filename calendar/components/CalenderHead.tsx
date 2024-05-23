@@ -6,7 +6,8 @@ type Props = {
     
 }
 
-const CalendarHead: FC<Props> = ({}) => {
+export const CalendarHead: FC<Props> = ({}) => {
+    
     return (
         <thead>
             <tr className='bg-[#bf0c1d] text-white'>
@@ -17,6 +18,3 @@ const CalendarHead: FC<Props> = ({}) => {
         </thead>
     );
 };
-
-
-export default CalendarHead;
