@@ -25,9 +25,9 @@ export default AuthService.instance.auth((req: NextRequest) => {
     }
   }
 
-  // if (!session && !passthrough) {
-  //   return NextResponse.redirect(new URL(routes.auth.LOGIN, req.url));
-  // }
+  if (!session && !passthrough) {
+    return NextResponse.redirect(new URL(routes.auth.LOGIN, req.url));
+  }
 
   if (session) {
     userId = session.user.id;

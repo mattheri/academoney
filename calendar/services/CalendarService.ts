@@ -1,4 +1,4 @@
-import { getMonth, getYear, getDaysInMonth } from "date-fns";
+import { getMonth, getYear } from "date-fns";
 import { TransactionType } from "@/auth";
 import type { CalendarEvent, Month } from "../calendar";
 
@@ -38,9 +38,5 @@ export class CalendarService {
       year || this.getCurrentYear(),
       month ? month - 1 : this.getCurrentMonth() - 1
     );
-  }
-
-  getDaysInMonth(month?: Month) {
-    
   }
 }
