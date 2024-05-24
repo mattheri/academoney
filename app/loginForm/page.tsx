@@ -1,3 +1,5 @@
+"use client"
+
 import { AuthService, signInWithCredentials } from "@/auth";
 import Image from "next/image";
 import Input from "../../common/components/Input/input";
@@ -5,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Form } from "@/common";
+
 
 
 const schema = yup.object().shape({
@@ -67,7 +70,7 @@ const LoginForm = () => {
                   </Form>
                 ))}
                 <div className="pt-6 text-center">
-                  <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
+                  <a href="/register" className="font-medium text-blue-600 hover:text-blue-500">
                     Inscription
                   </a>
                 </div>
