@@ -1,25 +1,26 @@
 import type { FC } from "react";
+import { useCalendar } from '../hooks/useCalendar';
 
-type Props = {
-
-}
+type Props = { }
 
 export const CalendarTransactionsList: FC<Props> = ({}) => {
+
+    const { events } = useCalendar();
 
     return(
         <div>
             <h2>Évènements:</h2>
-            {/* <ul> À REFAIRE UNE FOIS QU'ON VA AVOIR ACCÈS AUX TRANSACTIONS
-                {allEvents?.length > 0 ? (
-                allEvents.map((event, index) => (
+            <ul>
+                {events?.length > 0 ? (
+                events.map((event, index) => (
                     <li key={index}>
-                    <strong>{format(event.date, 'dd MMMM yyyy')}</strong>: {event.name}
+                    <strong>{event.toString()}</strong>: 
                     </li>
                 ))
                 ) : (
                 <li>Aucun évènements en cours</li>
                 )}
-            </ul> */}
+            </ul>
         </div>
     );
 };

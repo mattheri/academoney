@@ -5,6 +5,7 @@ const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./common/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./calculator/**/*.{js,ts,jsx,tsx,mdx}",
     "./calendar/**/*.{js,ts,jsx,tsx,mdx}",

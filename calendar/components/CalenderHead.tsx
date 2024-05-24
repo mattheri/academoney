@@ -2,9 +2,7 @@ import { FC } from "react"
 
 const namesOfWeekDays = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
-type Props = {
-    
-}
+type Props = { }
 
 export const CalendarHead: FC<Props> = ({}) => {
     

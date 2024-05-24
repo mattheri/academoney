@@ -5,7 +5,6 @@ import { fr } from 'date-fns/locale';
 import { CalendarContext } from '../context/CalendarContext';
 import { useContext } from 'react';
 import type { Transaction } from "@/auth";
-import { TransactionType } from '@/auth';
 
 export type CalendarEvent = Transaction;
 
@@ -15,29 +14,14 @@ type Props = {
 
 export const CalendarModal: FC<Props> = ({ isModalOpen }) => {
     const calendarContext = useContext(CalendarContext);
-    const setIsModalOpen = (openModal: boolean) => {
-
-    }
+    const setIsModalOpen = (openModal: boolean) => { }
 
     const handleEventInput = (e : ChangeEvent<HTMLInputElement>) => {
-        // setNewEventName(e.target.value);
+        // TODO
     }
 
     const handleAddCalendarEvent = () => {
-        calendarContext.totalExpense = 33; // test a effacer
-        calendarContext.events.push(
-            { // DONNEES TEMPORAIRE POUR TESTER
-                id: 0,
-                description: "lez go",
-                // category?: string,
-                amount: 10,
-                type: TransactionType.Expense,
-                isDone: false,
-                startDate: calendarContext.selectedDate!,
-                // endDate: undefined,
-                // frequency?: TransactionFrequency,
-            }
-        );
+        // TODO
     }
     
     return (
