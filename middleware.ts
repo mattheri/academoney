@@ -30,7 +30,7 @@ export default AuthService.instance.auth((req: NextRequest) => {
   }
 
   if (session) {
-    userId = session.user.id;
+    userId = session.user?.id;
   }
   const response = NextResponse.next();
   response.cookies.set(appConstants.USER_ID_COOKIE, JSON.stringify(userId));

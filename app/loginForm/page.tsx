@@ -1,6 +1,6 @@
 import { AuthService, signInWithCredentials } from "@/auth";
 import Image from "next/image";
-import Input from "./input";
+import Input from "../../common/components/Input/input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
