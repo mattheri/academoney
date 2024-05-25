@@ -1,26 +1,47 @@
+'use client'
 import { FormInput, FormSelectInput, Button, Form } from '@/common';
 import { categories, revenusDepenses } from './constants';
 import { addBudgetEntry } from './actions';
-import type { BudgetEntry } from "./budget";
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '@/auth/context/UserContext';
 
-type Props = {
-    id: BudgetEntry["id"];
-}
+
+
+
 // Définition du composant BudgetPage
-export const BudgetForm: React.FC<Props>= ({id}) => {
+export const BudgetForm: React.FC = () => {
+  const { user } = useContext(UserContext);
+  const [userId, setUserId] = useState<number | null>(null);
    
+  useEffect(() => {
+    if (user && user.id) {
+      const parsedId = parseInt(user.id, 10);
+      if (!isNaN(parsedId)) {
+        setUserId(parsedId);
+      } else {
+        console.error('User ID is not a valid number:', user.id);
+      }
+    } else {
+      console.error('User or user ID is missing:', user);
+    }
+  }, [user]);
+
+  
+      if (userId === null) {
+        return <div>Loading...</div>; // Affichez un indicateur de chargement ou un message approprié
+      }
     
     // Rendu du composant
     return (
        
         <div className=" bg-gray-500 flex flex-col justify-center sm:p-5 m-20 w-1/2 mx-auto">
             <Form action={addBudgetEntry}>
-                <FormInput label="Date" type="date" />
-                <FormInput label="Description" type="text" />
-                <FormSelectInput options={categories} />
-                <FormInput label="Montant" type="number" />
-                <FormSelectInput options={revenusDepenses} />
-                <FormInput type="hidden" name="id" value={id} />
+                <FormInput label="Date" type="date" name="startDate" />
+                <FormInput label="Description" type="text" name="description" />
+                <FormSelectInput options={categories} name="category" />
+                <FormInput label="Montant" type="number" name="amount" />
+                <FormSelectInput options={revenusDepenses} name="type" />
+                <FormInput type="hidden" name="id" value={userId} />
 
                 <Button type="submit">Ajouter</Button>
             </Form>

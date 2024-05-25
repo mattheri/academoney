@@ -2,13 +2,15 @@ import httpClient, { type Http } from "@/http";
 import type { BudgetEntry } from "../budget";
 
 export class BudgetService {
-  constructor(
-    private readonly http: Http = httpClient,
-    private readonly endpoint: "/users/{userId}/transactions"
-  ) {}
+  private endpoint: string; 
+
+  
+  constructor(private readonly http: Http = httpClient) {
+    this.endpoint = "/users";
+  }
 
   async getUser(id: number) {
-    const { data } = await this.http.GET<BudgetEntry>(`${this.endpoint}/${id}`);
+    const { data } = await this.http.GET<BudgetEntry>(`${this.endpoint}/${id}/transactions`);
 
     return data;
   }
@@ -21,7 +23,7 @@ export class BudgetService {
       ? new Date(budgetEntry.startDate).toDateString()
       : null;
 
-    const { data } = await this.http.POST(`${this.endpoint}/${id}`, {
+    const { data } = await this.http.POST(`${this.endpoint}/${id}/transactions`, {
       body: JSON.stringify({
         ...budgetEntry,
         date,

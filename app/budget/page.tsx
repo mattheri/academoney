@@ -8,7 +8,7 @@ const BudgetPage: React.FC = () => {
   // Rendu du composant
   return (     
     <main>
-      <BudgetForm id={0}  />
+      <BudgetForm  />
     </main>  
   );
 };

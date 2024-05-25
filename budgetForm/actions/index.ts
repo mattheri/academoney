@@ -18,12 +18,22 @@ export const addBudgetEntry = async (formDataBudget: FormData) => {
 
   const id = String(formDataBudget.get("id"));
 
-    const { data } = await httpClient.POST(`/users/${id}/transactions`, {
-      body: JSON.stringify({
-        ...budgetEntry,
-        date: budgetEntry.startDate ? new Date(budgetEntry.startDate).toDateString() : null,
-      }),
-    });
+    try{
+      const { data } = await httpClient.POST(`/users/${id}/transactions`, {
+        body: JSON.stringify({
+          ...budgetEntry,
+          date: budgetEntry.startDate ? new Date(budgetEntry.startDate).toISOString() : null,
+        }),
 
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       console.log(data)
+      
+    } catch (error) {
+      console.error("Error adding budget entry:", error);
+    }
+
+     
 }
