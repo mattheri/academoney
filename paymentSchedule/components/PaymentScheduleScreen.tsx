@@ -1,7 +1,7 @@
 "use client";
 
-import TableComponent from "./TableComponent";
-import PaymentScheduleButton from "./paymentScheduleButton";
+import TableComponent from "../components/TableComponent";
+import PaymentScheduleButton from "../components/paymentScheduleButton";
 
 import { Payment } from "../mockPaymentSchedule";
 import { useState } from "react";
