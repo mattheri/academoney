@@ -1,12 +1,12 @@
-import type { FC } from "react";
-import { getDaysInMonth, startOfToday, addDays, startOfWeek, startOfMonth } from 'date-fns';
+"use client";
 import { CalendarCell } from "./CalendarCell";
 import { useCalendar } from '../hooks/useCalendar';
 import { getWeeksInMonth } from 'date-fns';
+import { CalendarService } from "../services/CalendarService";
 
-type Props = { }
+const calendarService = new CalendarService();
 
-export const CalendarRows: FC<Props> = ({}) => {
+export const CalendarRows = ({}) => {
 
     const { currentYear, currentMonth } = useCalendar();
 
@@ -15,7 +15,7 @@ export const CalendarRows: FC<Props> = ({}) => {
             {Array(getWeeksInMonth(new Date(currentYear, currentMonth - 1, 1))).fill(null).map((_, weekIndex) => (
                 <tr key={weekIndex}>
                     {Array(7).fill(null).map((_, dayIndex) => {
-                        const day = addDays(startOfWeek(startOfMonth(new Date(currentYear, currentMonth - 1, 1))), weekIndex * 7 + dayIndex);
+                        const day = calendarService.getDayOfWeekAndMonth(currentYear, currentMonth, weekIndex, dayIndex);
                         return (
                             <CalendarCell
                                 key={dayIndex}

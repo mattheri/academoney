@@ -1,9 +1,8 @@
+"use client";
 import type { FC } from "react";
 import { useCalendar } from '../hooks/useCalendar';
 
-type Props = { }
-
-export const CalendarTransactionsList: FC<Props> = ({}) => {
+export const CalendarTransactionsList = ({}) => {
 
     const { events } = useCalendar();
 

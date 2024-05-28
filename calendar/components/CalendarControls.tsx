@@ -1,12 +1,10 @@
-import { FC } from 'react';
+"use client";
 import { format } from 'date-fns';
 import { useCalendar } from '../hooks/useCalendar';
 import { fr } from 'date-fns/locale';
 import { Month } from '../calendar';
 
-type Props = { }
-
-export const CalendarControls: FC<Props> = ({}) => {
+export const CalendarControls = ({}) => {
 
     const { currentMonth, currentYear, updateMonth } = useCalendar();
 

@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { CalendarModal } from '../../calendar/components/CalendarModal';
 import { CalendarTransactionsList } from '@/calendar/components/CalendarTransactionsList';
 import { CalendarRows } from '../../calendar/components/CalendarRows';
@@ -6,29 +5,21 @@ import { CalendarHead } from '@/calendar/components/CalenderHead';
 import { CalendarProvider } from "./CalendarProvider";
 import { CalendarControls } from './CalendarControls';
 
-type Props = {
-
-}
-
-export const Calendar: FC<Props> = ({}) => {
+export const Calendar = ({}) => {
 
     return(
-        <div className="mx-auto border p-3 bg-[#e7e7e4] rounded-lg text-black">
+        <div className="mx-auto border p-3 bg-light-gray rounded-lg text-black">
             <CalendarProvider>
 
-                <CalendarControls>
-                </CalendarControls>
+                <CalendarControls />
 
-                <table className="border table-fixed border-[#e7e7e4] text-center w-full rounded-lg">
-                    <CalendarHead>
-                    </CalendarHead>
+                <table className="border table-fixed border-light-gray text-center w-full rounded-lg">
+                    <CalendarHead />
                     
-                    <CalendarRows>
-                    </CalendarRows>
+                    <CalendarRows />
                 </table>
 
-                <CalendarTransactionsList>
-                </CalendarTransactionsList>
+                <CalendarTransactionsList />
 
                 <CalendarModal
                     isModalOpen={false}>

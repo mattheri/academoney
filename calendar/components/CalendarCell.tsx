@@ -1,3 +1,4 @@
+"use client";
 import { format, isSameMonth } from "date-fns";
 import { CalendarService } from "../services/CalendarService";
 import type { FC } from "react";
@@ -18,11 +19,11 @@ export const CalendarCell: FC<Props> = ({ day }) => {
     }
 
     return(
-        <td onClick={() => handleDateClick(day)} className={`border border-white bg-[#092d74] h-28 align-top ${isSameMonth(day, new Date(currentYear, currentMonth - 1, 1)) ? 'text-white' : 'text-[#ef3832]'}`}>
+        <td onClick={() => handleDateClick(day)} className={`border border-white bg-primary-blue h-28 align-top ${calendarService.isItSameMonth(day, currentYear, currentMonth) ? 'text-white' : 'text-primary-red'}`}>
             <b>{day && format(day, 'd')}</b>
             <div id={day && format(day, 'yyyy-MM-dd')}>
                 {events.map((event, eventIndex) => (
-                    <div className='border border-bg[#e7e7e4] bg-black'><p key={eventIndex}>{event.startDate.toString() === day.toString() ? event.description : ''}</p></div>
+                    <div className='border bg-black'><p key={eventIndex}>{event.startDate.toString() === day.toString() ? event.description : ''}</p></div>
                 ))}
             </div>
         </td>
