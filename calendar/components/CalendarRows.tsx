@@ -12,7 +12,7 @@ export const CalendarRows = ({}) => {
 
     return(
         <tbody>
-            {Array(getWeeksInMonth(new Date(currentYear, currentMonth - 1, 1))).fill(null).map((_, weekIndex) => (
+            {Array(calendarService.getNumberOfWeeksInMonth(currentYear, currentMonth)).fill(null).map((_, weekIndex) => (
                 <tr key={weekIndex}>
                     {Array(7).fill(null).map((_, dayIndex) => {
                         const day = calendarService.getDayOfWeekAndMonth(currentYear, currentMonth, weekIndex, dayIndex);
