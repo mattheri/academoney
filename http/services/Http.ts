@@ -80,7 +80,7 @@ export class Http {
     if (!init) return {};
 
     const headers = new Headers(init.headers);
-
+console.log(init)
     return {
       ...init,
       headers,

@@ -1,4 +1,4 @@
-import httpClient, { type Http } from "@/http";
+/*import httpClient, { type Http } from "@/http";
 import type { BudgetEntry } from "../budget";
 
 export class BudgetService {
@@ -15,7 +15,7 @@ export class BudgetService {
     return data;
   }
 
-  async addBudgetEntry(
+  /*async addBudgetEntry(
     id: number,
     budgetEntry: BudgetEntry
   ) {
@@ -32,5 +32,5 @@ export class BudgetService {
     });
 
     return data;
-  }
-}
+  }*/
+
