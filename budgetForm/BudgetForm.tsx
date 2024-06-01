@@ -1,6 +1,6 @@
 'use client'
 import { FormInput, FormSelectInput, Button, Form } from '@/common';
-import { categories, revenusDepenses } from './constants';
+import { categories, frequence,  revenusDepenses } from './constants';
 import { addBudgetEntry } from './actions';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '@/auth/context/UserContext';
@@ -41,6 +41,7 @@ export const BudgetForm: React.FC = () => {
                 <FormSelectInput options={categories} name="category" />
                 <FormInput label="Montant" type="number" name="amount" />
                 <FormSelectInput options={revenusDepenses} name="type" />
+                <FormSelectInput options={frequence} name="frequency" />
                 <FormInput type="hidden" name="id" value={userId} />
 
                 <Button type="submit">Ajouter</Button>

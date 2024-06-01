@@ -16,7 +16,12 @@ export const categories = [
   ];
   
   export const revenusDepenses = [
-    'Revenu',
-    'Dépense'
+    'Revenue',
+    'Expense'
   ];
+
+  export const frequence = [
+    "frequence","1", "7", "14", "30", "-1"
+
+  ]
   

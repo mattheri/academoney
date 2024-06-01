@@ -45,6 +45,8 @@ export const addBudgetEntry = async (formDataBudget: FormData) => {
           date: budgetEntry.startDate ? new Date(budgetEntry.startDate).toISOString().slice(0,10) : null,
         },*/
         body: JSON.stringify(budgetEntry),
+        
+        
         headers: {
           "Content-Type": "application/json",
         },
