@@ -61,7 +61,7 @@ export class CalendarService {
 
     console.log("a");
     try{
-      const { data } = await httpClient.GET(`users/${userId}/transactions`, {
+      const { data } = await httpClient.GET(`https://money-pie.fly.dev/api/v1/users/${userId}/transactions`, {
         headers: {
           "Content-Type": "application/json",
         },
