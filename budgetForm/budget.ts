@@ -3,7 +3,7 @@ export type User = {
   id: number;
   firstName: string;
   lastName: string;
-  birthDate: string; // ISO 8601 date format
+  birthDate: string; 
   isActive: boolean;
   email: string;
   password: string;
