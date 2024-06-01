@@ -4,6 +4,7 @@ import { categories, frequence,  revenusDepenses } from './constants';
 import { addBudgetEntry } from './actions';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '@/auth/context/UserContext';
+import { getOptionsWithLabels, labelsFrancais, Option } from './services/budgetFormCategories';
 
 
 
@@ -30,6 +31,8 @@ export const BudgetForm: React.FC = () => {
       if (userId === null) {
         return <div>Loading...</div>; // Affichez un indicateur de chargement ou un message approprié
       }
+
+      const optionsRevenusDepensesFrancais: Option[] = getOptionsWithLabels(revenusDepenses, labelsFrancais);
     
     // Rendu du composant
     return (
@@ -40,7 +43,7 @@ export const BudgetForm: React.FC = () => {
                 <FormInput label="Description" type="text" name="description" />
                 <FormSelectInput options={categories} name="category" />
                 <FormInput label="Montant" type="number" name="amount" />
-                <FormSelectInput options={revenusDepenses} name="type" />
+                <FormSelectInput options={optionsRevenusDepensesFrancais} name="type" />
                 <FormSelectInput options={frequence} name="frequency" />
                 <FormInput type="hidden" name="id" value={userId} />
 

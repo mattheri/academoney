@@ -4,6 +4,7 @@ export const categories = [
     "Alimentation",
     "Télécomunications",
     "Éducation",
+    "Transport",
     "Soins personnels",
     "Épargne",
     "Vêtements",
@@ -19,6 +20,8 @@ export const categories = [
     'Revenue',
     'Expense'
   ];
+
+  
 
   export const frequence = [
     "frequence","1", "7", "14", "30", "-1"
