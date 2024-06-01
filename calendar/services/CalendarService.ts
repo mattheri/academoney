@@ -59,17 +59,21 @@ export class CalendarService {
 
   async getAllTransactions(userId: number) {
 
-    console.log("a");
-    try{
-      const { data } = await httpClient.GET(`https://money-pie.fly.dev/api/v1/users/${userId}/transactions`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    console.log(data);
-    } catch (error) {
-      console.error("Error getting transactions.", error);
-    }
+    console.log("process.env.AUTH_SECRET: ", process.env.AUTH_SECRET);
+    console.log("process.env.API_URL: ", process.env.API_URL);
+    console.log("process.env.PASSTHROUGH_SECRET: ", process.env.PASSTHROUGH_SECRET);
+
+    // console.log("a");
+    // try{
+    //   const { data } = await httpClient.GET(`/users/${userId}/transactions`, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    // console.log(data);
+    // } catch (error) {
+    //   console.error("Error getting transactions.", error);
+    // }
 
     return "hello";
 

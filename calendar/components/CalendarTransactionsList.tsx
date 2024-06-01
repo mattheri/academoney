@@ -9,7 +9,7 @@ export const CalendarTransactionsList = ({}) => {
 
     const { events } = useCalendar();
     calendarService.getAllTransactions(22);
-    
+
     return(
         <div>
             <h2>Évènements:</h2>

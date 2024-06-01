@@ -6,7 +6,6 @@ import { CalendarProvider } from "./CalendarProvider";
 import { CalendarControls } from './CalendarControls';
 
 export const Calendar = ({}) => {
-
     return(
         <div className="mx-auto border p-3 bg-light-gray rounded-lg text-black">
             <CalendarProvider>
