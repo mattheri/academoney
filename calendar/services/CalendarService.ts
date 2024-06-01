@@ -2,6 +2,7 @@ import { getMonth, getYear, addDays, startOfWeek, startOfMonth, getWeeksInMonth,
 import { TransactionType } from "@/auth";
 import type { CalendarEvent, Month } from "../calendar";
 import httpClient from "@/http";
+import appConstants from "@/contants";
 
 export class CalendarService {
   private readonly now = new Date();
@@ -59,21 +60,21 @@ export class CalendarService {
 
   async getAllTransactions(userId: number) {
 
-    console.log("process.env.AUTH_SECRET: ", process.env.AUTH_SECRET);
-    console.log("process.env.API_URL: ", process.env.API_URL);
-    console.log("process.env.PASSTHROUGH_SECRET: ", process.env.PASSTHROUGH_SECRET);
+    console.log("appConstants.API_URL: ", appConstants.API_URL);
+    console.log("appConstants.USER_ID_COOKIE: ", appConstants.USER_ID_COOKIE);
+    console.log("appConstants.PASSTHROUGH_SECRET: ", appConstants.PASSTHROUGH_SECRET);
+    console.log("appConstants.PASSTHROUGH_QUERY_PARAM: ", appConstants.PASSTHROUGH_QUERY_PARAM);
 
-    // console.log("a");
-    // try{
-    //   const { data } = await httpClient.GET(`/users/${userId}/transactions`, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    // console.log(data);
-    // } catch (error) {
-    //   console.error("Error getting transactions.", error);
-    // }
+    try{
+      const { data } = await httpClient.GET(`/users/${userId}/transactions`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    console.log(data);
+    } catch (error) {
+      console.error("Error getting transactions.", error);
+    }
 
     return "hello";
 
