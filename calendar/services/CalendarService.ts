@@ -1,4 +1,4 @@
-import { getMonth, getYear, addDays, startOfWeek, startOfMonth, getWeeksInMonth, isSameMonth } from "date-fns";
+import { getMonth, getYear, addDays, startOfWeek, startOfMonth, getWeeksInMonth, isSameMonth, isToday } from "date-fns";
 import { TransactionType } from "@/auth";
 import type { CalendarEvent, Month } from "../calendar";
 
@@ -50,6 +50,10 @@ export class CalendarService {
 
   isItSameMonth(day: Date, year: number, month: Month) {
     return isSameMonth(day, new Date(year, month - 1, 1));
+  }
+
+  isItToday(day: Date) {
+    return isToday(day);
   }
 
 }
