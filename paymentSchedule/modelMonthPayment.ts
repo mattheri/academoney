@@ -1,7 +1,7 @@
-import { modelOnePayment } from "./modelOnePayment";
+import { ModelOnePayment } from "./modelOnePayment";
 
-export interface modelMonthPayment {
-    id: string,
-    name: string,
-    onePayment: modelOnePayment[],
-}
+export type ModelMonthPayment = {
+    id: string;
+    name: string;
+    onePayment: ModelOnePayment[];
+};

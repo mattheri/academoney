@@ -1,11 +1,10 @@
 import type { FC } from "react";
 
-import { PaymentScheduleProps } from "../paymentSchedule";
 import { PaymentScheduleScreen } from "./PaymentScheduleScreen";
 
-type Props = PaymentScheduleProps;
+type Props = {};
 
-export const PaymentSchedule: FC<Props> =({autoInit}) =>{
+export const PaymentSchedule: FC<Props> =({}) =>{
     return (
         <PaymentScheduleScreen/>
     );

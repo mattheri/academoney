@@ -33,7 +33,7 @@ export const PaymentScheduleScreen = () =>{
 
     const monthSummary = () => {
         return filteredPayments.reduce((sum, payment) => {
-          return sum + payment.onePayment.reduce((innerSum, onePay) => innerSum + onePay.solde, 0);
+          return sum + payment.onePayment.reduce((innerSum: number, onePay: { amount: number; }) => innerSum + onePay.amount, 0);
         }, 0);
       };
 

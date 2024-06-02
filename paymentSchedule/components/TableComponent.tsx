@@ -1,8 +1,9 @@
+// TableComponent.tsx
 import React from "react";
-import { modelMonthPayment } from "../mockPaymentSchedule";
+import { ModelMonthPayment } from "../mockPaymentSchedule"; // Correction ici : ModelMonthPayment
 
 type Props = {
-  payments: modelMonthPayment[];
+  payments: ModelMonthPayment[];
 };
 
 const TableComponent: React.FC<Props> = ({ payments }) => {
@@ -13,21 +14,19 @@ const TableComponent: React.FC<Props> = ({ payments }) => {
           <th className="p-1 border box-border border-light-gray">Date</th>
           <th className="p-1 border box-border border-light-gray">Description</th>
           <th className="p-1 border box-border border-light-gray">Catégorie</th>
-          <th className="p-1 border box-border border-light-gray">Revenus</th>
-          <th className="p-1 border box-border border-light-gray">Dépenses</th>
-          <th className="p-1 border box-border border-light-gray">Solde</th>
+          <th className="p-1 border box-border border-light-gray">Types</th>
+          <th className="p-1 border box-border border-light-gray">Montant</th>
         </tr>
       </thead>
       <tbody className="bg-primary-blue text-white text-center">
         {payments.map((payment, index) =>
           payment.onePayment.map((onePay, subIndex) => (
             <tr key={`${index}-${subIndex}`}>
-              <td className="p-1 border box-border border-light-gray">{onePay.date}</td>
+              <td className="p-1 border box-border border-light-gray">{onePay.startDate}</td>
               <td className="p-1 border box-border border-light-gray">{onePay.description}</td>
               <td className="p-1 border box-border border-light-gray">{onePay.categories}</td>
-              <td className="p-1 border box-border border-light-gray">{onePay.revenus ? "Oui" : "Non"}</td>
-              <td className="p-1 border box-border border-light-gray">{onePay.depences ? "Oui" : "Non"}</td>
-              <td className="p-1 border box-border border-light-gray">{onePay.solde}$</td>
+              <td className="p-1 border box-border border-light-gray">{onePay.type}</td>
+              <td className="p-1 border box-border border-light-gray">{onePay.amount}$</td>
             </tr>
           ))
         )}

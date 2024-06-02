@@ -1,9 +1,11 @@
-export interface modelOnePayment {
+export type ModelOnePayment = {
     id: string,
-    date: string,
     description: string,
     categories: string,
-    revenus: boolean,
-    depences: boolean,
-    solde: number
+    amount: number,
+    type: string,
+    startDate:string,
+    endDate:string,
+    frequency:number,
+    user:{},
 }

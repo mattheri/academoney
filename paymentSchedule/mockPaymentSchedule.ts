@@ -1,64 +1,31 @@
-import { modelMonthPayment } from "./modelMonthPayment";
+import { ModelMonthPayment } from "./modelMonthPayment";
 
-export const Payment: modelMonthPayment[] = [
+export const Payment: ModelMonthPayment[] = [
     {
         id:"0",
         name: "Janvier",
         onePayment:[
             {
                 id: "0",
-                date: "2024-01-10",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -200
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
             },
             {
                 id: "0",
-                date: "2024-01-10",
-                description: "Escence",
-                categories: "Transport",
-                revenus: false,
-                depences: true,
-                solde: -200
-            },
-            {
-                id: "0",
-                date: "2024-01-10",
-                description: "Assurence",
-                categories: "Assurence",
-                revenus: false,
-                depences: true,
-                solde: -350
-            },
-            {
-                id: "0",
-                date: "2024-01-10",
-                description: "Loyer",
-                categories: "Loyer",
-                revenus: false,
-                depences: true,
-                solde: -1500
-            },
-
-            {
-                id: "1",
-                date: "2024-01-15",
+                startDate: "2024-01-15",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Paie",
-                revenus: true,
-                depences: false,
-                solde: 1800
-            },
-            {
-                id: "2",
-                date: "2024-01-15",
-                description: "Achat de nourriture",
-                categories: "Paie",
-                revenus: true,
-                depences: false,
-                solde: 1800
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
             },
         ],
     },
@@ -68,13 +35,26 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-02-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
     {
@@ -83,13 +63,26 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-03-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
     {
@@ -98,13 +91,26 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-03-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
     {
@@ -113,13 +119,26 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-03-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
     {
@@ -128,13 +147,26 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-03-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
     {
@@ -143,13 +175,26 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-03-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
     {
@@ -158,13 +203,26 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-03-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
     {
@@ -173,13 +231,26 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-03-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
     {
@@ -188,13 +259,26 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-03-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
     {
@@ -203,13 +287,26 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-03-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
     {
@@ -218,16 +315,29 @@ export const Payment: modelMonthPayment[] = [
         onePayment:[
             {
                 id: "0",
-                date: "2024-03-15",
+                startDate: "2024-01-10",
+                endDate: "",
                 description: "Achat de nourriture",
                 categories: "Alimentation",
-                revenus: false,
-                depences: true,
-                solde: -50
-            }
+                type: "Dépense",
+                amount: -200,
+                frequency: 0,
+                user: {},
+            },
+            {
+                id: "0",
+                startDate: "2024-01-15",
+                endDate: "",
+                description: "Achat de nourriture",
+                categories: "Paie",
+                type: "Revenu",
+                amount: 1500,
+                frequency: 0,
+                user: {},
+            },
         ]
     },
 
 ]
 
-export type { modelMonthPayment };
+export type { ModelMonthPayment };
