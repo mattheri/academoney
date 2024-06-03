@@ -24,5 +24,5 @@ export const updatePersonalInformations = async (formData: FormData) => {
     }),
   });
 
-  console.log(data);
+  //console.log(data);
 };

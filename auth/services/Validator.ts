@@ -73,10 +73,16 @@ export class Validator {
   async validateCredentialsWithPasswordConfirm(
     args: Partial<Record<string, unknown>>
   ) {
-    return await Validator.registerCredentialsSchema.validate(args, {
-      abortEarly: false,
-      disableStackTrace: true,
-    });
+    try {
+      const t = await Validator.registerCredentialsSchema.validate(args, {
+        abortEarly: false,
+        disableStackTrace: true,
+      });
+      console.log(t)
+      return t;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async validateErrorResponse(data: any) {
