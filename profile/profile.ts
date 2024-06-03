@@ -8,3 +8,10 @@ export type PersonalInformations = Pick<
 >;
 
 export type PersonalInformationsDto = Partial<PersonalInformations>;
+
+export type OptionsConnexion = Pick<
+  Profile,
+  "email" | "password"
+>;
+
+export type OptionsConnexionDto = Partial<OptionsConnexion>;

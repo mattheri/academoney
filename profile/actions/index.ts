@@ -26,3 +26,19 @@ export const updatePersonalInformations = async (formData: FormData) => {
 
   console.log(data);
 };
+
+export const updateOptionsConnexion = async (formData: FormData) => {
+  const email = String(formData.get("email"));
+  const password = String(formData.get("password"));
+  const id = String(formData.get("id"));
+
+  const { data } = await httpClient.PUT(`/users/${id}`, {
+    body: JSON.stringify({
+      email,
+      password,
+      isActive: true,
+    }),
+  });
+
+  console.log(data);
+};
