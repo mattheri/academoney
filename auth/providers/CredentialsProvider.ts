@@ -114,7 +114,9 @@ export class CredentialsProvider implements AuthProvider {
     id: string
   ) {
     try {
-      await this.auth.signIn(id, { email, password, ...rest });
+      await this.auth.signIn(id, { email, password, redirect: false, ...rest });
+
+      redirect(redirectTo);
     } catch (e) {
       const error = e as Error;
       if (error.message === "NEXT_REDIRECT") {

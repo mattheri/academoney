@@ -2,8 +2,7 @@
 
 import httpClient from "@/http";
 import type { BudgetEntry, User } from "../budget";
-//import axios from "axios";
-//import constants from "constants";
+
 
 export const addBudgetEntry = async (formDataBudget: FormData) => {
   const id = String(formDataBudget.get("id"));
@@ -32,27 +31,17 @@ export const addBudgetEntry = async (formDataBudget: FormData) => {
     user: user,
     
   };
- 
-  
-  
 
-  
-
-    try{
-      const { data } = await httpClient.POST(`/users/${id}/transactions`, {
-       
-        body: JSON.stringify(budgetEntry),
-        
-        
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(data)
-      
-    } catch (error) {
-      console.error("Error adding budget entry:", error);
-    }
-
-     
+  try{
+    const { data } = await httpClient.POST(`/users/${id}/transactions`, {
+      body: budgetEntry,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(data)
+    
+  } catch (error) {
+    console.error("Error adding budget entry:", error);
+  } 
 }
