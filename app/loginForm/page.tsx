@@ -57,18 +57,18 @@ const LoginForm = () => {
                         required
                         autoComplete="email"
                         placeholder="Courriel"
+                        error={errors.email?.message}
                         {...register("email", { onBlur: () => trigger("email") })}
                       />
-                      {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
                       <Input
                         id="password"
                         type="password"
                         required
                         autoComplete="current-password"
                         placeholder="Mot de passe"
+                        error={errors.password?.message}
                         {...register("password", { onBlur: () => trigger("password") })}
                       />
-                      {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
                     </div>
 
                     <div className="pt-6">
