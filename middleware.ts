@@ -17,7 +17,7 @@ export default AuthService.instance.auth((req: NextRequest) => {
   const response = NextResponse.next();
   response.cookies.set(
     appConstants.USER_ID_COOKIE,
-    JSON.stringify(session.user.id)
+  JSON.stringify(session.user.id)
   );
 
   return response;
