@@ -2,6 +2,7 @@ import { AuthService, signInWithCredentials } from "@/auth";
 import { Form } from "@/common";
 import { routes } from "@/routes";
 
+// Création de la page de connexion qui utilise le composant loginForm
 const LoginPage = () => {
   return (
     <div>
@@ -24,3 +25,6 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+
+

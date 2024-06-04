@@ -1,11 +1,11 @@
 export const routes = {
   INDEX: "/",
   auth: {
-    LOGIN: "/login",
+    LOGIN: "/loginForm",
     REGISTER: "/register",
   },
   api: {
-    LOGIN: "/api/auth/login",
+    LOGIN: "/api/auth/loginForm",
     REGISTER: "/api/auth/register",
     LOGOUT: "/api/auth/logout",
   },
