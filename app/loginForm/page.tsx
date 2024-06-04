@@ -26,15 +26,14 @@ const LoginForm = () => {
     resolver: yupResolver(schema)
   });
 
-  const OnSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const OnSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    trigger().then((isValid) => {
-      if (isValid) {
-        console.log("Form is valid and ready for submission");
-      } else {
-        console.log("Form validation failed");
-      }
-    });
+    const isValid = await trigger();
+    if (isValid) {
+      console.log("Form is valid and ready for submission");
+    } else {
+      console.log("Form validation failed");
+    }
   };
 
 
@@ -50,7 +49,7 @@ const LoginForm = () => {
             <div className="divide-y divide-gray-200">
               <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                 {AuthService.instance.getProvidersMap().map((provider) => (
-                  <Form key={provider.id} action={signInWithCredentials} onSubmit={OnSubmit}>
+                  <Form key={provider.id} action={signInWithCredentials} onSubmit={OnSubmit} noValidate>
                     <div className="rounded-md shadow-sm">
                       <Input
                         id="email-address"
