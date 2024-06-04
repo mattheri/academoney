@@ -15,8 +15,8 @@ const PieChart: React.FC<PieChartProps> = ({ revenue, expense }) => {
     datasets: [
       {
         data: [revenue, expense],
-        backgroundColor: ["#36A2EB", "#FF6384"],
-        hoverBackgroundColor: ["#36A2EB", "#FF6384"],
+        backgroundColor: ["#092d74", "#dfcce4"],
+        hoverBackgroundColor: ["#092d74", "#dfcce4"],
       },
     ],
   };
