@@ -1,5 +1,6 @@
 
 
+
 // pages/index.tsx
 'use client';
 //Form event gere les entrées de formulaire
@@ -51,6 +52,8 @@ const Home: React.FC = () => {
   const [result, setResult] = useState<string>('');
 
 
+  const [result2, setResult2] = useState<string>("");     //WILL private
+
    //Super cool on genre le changement "ChangeEvent" selon le cas lié au nom et on set le new value   PPP7171
   const handleInputChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>): void => {
     const { name, value } = event.target;
@@ -83,6 +86,7 @@ const Home: React.FC = () => {
     //s38222 je vais 
     const timesCompounded = compoundingFrequency === 'Mois' ? 12 : 1;     //Interet calculé au moins ou a l'année?   *** RAPH ERRUR 2073PLP
     const periods = tempsDinvestissement[investmentHorizon] * timesCompounded;
+    console.log(periods)
 
     let balance = principal;
     let monthlyContribution = depositFrequency === 'Mois' ? monthlyDeposit : monthlyDeposit * 4; // Approximation pour conversion hebdomadaire en mensuel
