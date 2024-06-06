@@ -39,3 +39,5 @@ export const LocationAwareLink: FC<Props> = forwardRef<
     />
   );
 });
+
+LocationAwareLink.displayName = "LocationAwareLink";
