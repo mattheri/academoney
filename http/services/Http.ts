@@ -80,13 +80,11 @@ export class Http {
     if (!init) return {};
 
     const headers = new Headers(init.headers);
-    const body =
-      "body" in init && init.body ? JSON.stringify(init.body) : undefined;
 
     return {
       ...init,
       headers,
-      body,
+      data: "body" in init ? init.body : undefined,
       signal,
     };
   }
