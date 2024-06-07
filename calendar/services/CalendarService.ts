@@ -1,8 +1,6 @@
 import { getMonth, getYear, addDays, startOfWeek, startOfMonth, getWeeksInMonth, isSameMonth, isToday } from "date-fns";
-import { TransactionType } from "@/auth";
+import { Transaction, TransactionType } from "@/auth";
 import type { CalendarEvent, Month } from "../calendar";
-import httpClient from "@/http";
-import appConstants from "@/contants";
 
 export class CalendarService {
   private readonly now = new Date();
@@ -56,46 +54,6 @@ export class CalendarService {
 
   isItToday(day: Date) {
     return isToday(day);
-  }
-
-  async getAllTransactions(userId: number) {
-
-    console.log("appConstants.API_URL: ", appConstants.API_URL);
-    console.log("appConstants.USER_ID_COOKIE: ", appConstants.USER_ID_COOKIE);
-    console.log("appConstants.PASSTHROUGH_SECRET: ", appConstants.PASSTHROUGH_SECRET);
-    console.log("appConstants.PASSTHROUGH_QUERY_PARAM: ", appConstants.PASSTHROUGH_QUERY_PARAM);
-
-    try{
-      const { data } = await httpClient.GET(`/users/${userId}/transactions`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    console.log(data);
-    } catch (error) {
-      console.error("Error getting transactions.", error);
-    }
-
-    return "hello";
-
-    // try{
-    //   const { data } = await httpClient.POST(`/users/${id}/transactions`, {
-    //     /*body: {
-    //       ...budgetEntry,
-    //       date: budgetEntry.startDate ? new Date(budgetEntry.startDate).toISOString().slice(0,10) : null,
-    //     },*/
-    //     body: JSON.stringify(budgetEntry),
-        
-        
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   console.log(data)
-      
-    // } catch (error) {
-    //   console.error("Error adding budget entry:", error);
-    // }
   }
 
 }
