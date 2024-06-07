@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 interface Versement {
   periode: number;
-  montant: number;
+  capital: number;
 }
 
 export const ResultsTable: React.FC<{ results: Versement[] }> = ({
@@ -30,14 +30,14 @@ export const ResultsTable: React.FC<{ results: Versement[] }> = ({
         <thead>
           <tr>
             <th className="border p-2">Période</th>
-            <th className="border p-2">Valeur</th>
+            <th className="border p-2">Capital</th>
           </tr>
         </thead>
         <tbody>
           {paginatedResults.map((result, index) => (
             <tr key={index} className="border">
               <td className="p-2">{result.periode}</td>
-              <td className="p-2">{result.montant}</td>
+              <td className="p-2">{result.capital}</td>
             </tr>
           ))}
         </tbody>

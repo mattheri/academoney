@@ -19,23 +19,25 @@ Chart.register(
   Title,
   CategoryScale
 );
+
+interface Versement {
+  periode: number;
+  capital: number;
+}
+
 interface ChartProps {
-  data: string[]; // Votre tableau de chaînes de caractères au format "période valeur"
+  data: Versement[]; // Votre tableau de chaînes de caractères au format "période valeur"
 }
 
 export const ChartComponent: React.FC<ChartProps> = ({ data }) => {
   // Analyse des données
-  const dataArray = data.map((item) => {
-    const [period, value] = item.split(" ");
-    return { period, value };
-  });
 
   const chartData = {
-    labels: dataArray.map((item) => item.period),
+    labels: data.map((item) => item.periode),
     datasets: [
       {
         label: "Données du graphique",
-        data: dataArray.map((item) => parseFloat(item.value)),
+        data: data.map((item) => item.capital),
         fill: false,
         borderColor: "rgb(75, 192, 192)",
         tension: 0.1,

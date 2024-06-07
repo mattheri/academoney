@@ -1,7 +1,7 @@
-import {
-  compoundInterestPerPeriod,
-  mortgageCalculator,
-} from "@jdizm/finance-calculator";
+interface Versement {
+  periode: number;
+  capital: number;
+}
 
 function calculateCapital(
   initialCapital: number,
@@ -70,9 +70,8 @@ function calculateFutureValues(
   unithorizon: string,
   depositFrequency: string,
   compoundingFrequency: string
-): string[] {
-  const futureValues: string[] = [];
-
+): Versement[] {
+  const futureValues: Versement[] = [];
   const normalizedInterestRate = interestRate / 100;
 
   const normalizedPeriods = calculatePeriods(
@@ -90,7 +89,10 @@ function calculateFutureValues(
   );
 
   for (let i = 0; i <= normalizedPeriods; i++) {
-    futureValues.push(i + " " + result[i].toFixed(2));
+    futureValues.push({
+      periode: i,
+      capital: result[i],
+    });
   }
   return futureValues;
 }
