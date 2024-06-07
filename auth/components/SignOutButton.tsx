@@ -11,10 +11,12 @@ type Props = {
 
 export const SignOutButton: FC<Props> = ({
   redirectTo = routes.auth.LOGIN,
+  
 }) => {
+  sessionStorage.removeItem("validationPass"); // Enlève la validationPass lors d'une déconnexion.
   return (
     <Form action={signOut}>
-      <button type="submit">Sign out</button>
+      <button type="submit">Se déconnecter</button>
       <input type="hidden" name="redirectTo" value={redirectTo} />
     </Form>
   );

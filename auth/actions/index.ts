@@ -38,9 +38,14 @@ export const signInWithCredentials = async (formData: FormData) => {
   };
 
 };
-
-
-
+export const validateUserPassword = async (email: string, password: string) => { // 2FA validation sur le server.
+  const user = await authHttpService.getUserByEmail(email);
+  if (user && password === user.password) {
+    return true;
+  } else {
+    throw new Error("Invalid password")
+  }
+};
 
 
 
