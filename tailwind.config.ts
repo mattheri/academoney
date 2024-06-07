@@ -9,7 +9,9 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./calculator/**/*.{js,ts,jsx,tsx,mdx}",
     "./auth/**/*.{js,ts,jsx,tsx,mdx}",
+    "./common/**/*.{js,ts,jsx,tsx,mdx}",
     "./calendar/**/*.{js,ts,jsx,tsx,mdx}",
+    "./slide-calendar/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
