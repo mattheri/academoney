@@ -1,28 +1,48 @@
 "use server";
 
 import { routes } from "@/routes";
+import { serialize } from "cookie";
 
 import { AuthAction } from "../auth";
 import { AuthService } from "../services/AuthService";
+import { AuthHttpService } from "../services/AuthHttpService";
+
 
 const Auth = AuthService.instance;
+const authHttpService = new AuthHttpService();
+
 
 export const signInWithCredentials = async (formData: FormData) => {
   const email = String(formData.get("email"));
   const password = String(formData.get("password"));
   const id = String(formData.get("provider"));
+  const user = await authHttpService.getUserByEmail(email);
   const redirectTo = String(formData.get("redirectTo") ?? routes.INDEX);
 
-  await Auth.Credentials.signIn(
-    {
-      email,
-      password,
-      redirectTo,
-      action: AuthAction.SignIn,
-    },
-    id
-  );
+  if (user && password === user.password){
+
+    await Auth.Credentials.signIn(
+      {
+        email,
+        password,
+        redirectTo,
+        action: AuthAction.SignIn,
+        
+      },
+      id,
+    );
+    return email; // save locally  pour ré-utiliser sur le client-side.
+
+  } else {
+    throw new Error("Invalid password")
+  };
+
 };
+
+
+
+
+
 
 export const signOut = async (formData: FormData) => {
   const redirectTo = String(formData.get("redirectTo") ?? routes.auth.LOGIN);

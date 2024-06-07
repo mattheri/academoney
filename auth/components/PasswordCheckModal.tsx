@@ -1,38 +1,35 @@
-import { useState } from "react";
+// À retravailler
 
-interface PasswordCheckModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onVerifyPassword: (password: string) => void;
-}
 
-const PasswordCheckModal: React.FC<PasswordCheckModalProps> = ({ isOpen, onClose, onVerifyPassword }) => {
-  const [password, setPassword] = useState("");
+import { Form } from "@/common";
+// import { validateWithCredentials } from "../actions";
 
-  if (!isOpen) return null;
-
-  const handleSubmit = (e: React.FormEvent) => {
+const SensitiveActionComponent = () => {
+  const handleValidate = async (e: React.FormEvent) => {
     e.preventDefault();
-    onVerifyPassword(password);
+    const formData = new FormData(e.target as HTMLFormElement);
+
+    try {
+      const isValid = "test";//await validateWithCredentials(formData);
+      if (isValid) {
+        console.log('Validation successful, proceeding with sensitive action.');
+        // Code to proceed with the sensitive action
+      }
+    } catch (error:any) {
+      console.error('Validation failed:', error.message);
+      // Handle validation failure (e.g., display an error message)
+    }
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={onClose}>&times;</span>
-        <form onSubmit={handleSubmit}>
-          <label>Re-enter Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit">Verify</button>
-        </form>
-      </div>
+    <div>
+      <Form onSubmit={handleValidate}>
+        <label>Confirm Password:</label>
+        <input type="password" name="password" required />
+        <button type="submit">Validate</button>
+      </Form>
     </div>
   );
 };
 
-export default PasswordCheckModal;
+export default SensitiveActionComponent;
